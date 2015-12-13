@@ -1,0 +1,69 @@
+﻿Build started 19/11/2014 06:19:15.
+     1>Project "C:\Users\Graham\Documents\GitHub\BACKUPOPENGLPROJECT\GP2LABS_GMACDO202\GP2LABS_GMACDO202\BulletDynamics.vcxproj" on node 4 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I..\..\src /Zi /nologo /W3 /WX- /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _CRT_SECURE_NO_DEPRECATE /D _HAS_EXCEPTIONS=0 /D _MBCS /Gm- /RTC1 /MTd /GS /Gy /fp:fast /Zc:wchar_t /Zc:forScope /GR- /Fo"obj\x32\Debug\BulletDynamics\\" /Fd"..\..\lib\BulletDynamics_vs2010_debug.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\src\BulletDynamics\Character\btKinematicCharacterController.cpp ..\..\src\BulletDynamics\ConstraintSolver\btConeTwistConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btContactConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btFixedConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btGearConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btHinge2Constraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btHingeConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp ..\..\src\BulletDynamics\ConstraintSolver\btSliderConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btTypedConstraint.cpp ..\..\src\BulletDynamics\ConstraintSolver\btUniversalConstraint.cpp ..\..\src\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.cpp ..\..\src\BulletDynamics\Dynamics\btRigidBody.cpp ..\..\src\BulletDynamics\Dynamics\btSimpleDynamicsWorld.cpp "..\..\src\BulletDynamics\Dynamics\Bullet-C-API.cpp" ..\..\src\BulletDynamics\Featherstone\btMultiBody.cpp ..\..\src\BulletDynamics\Featherstone\btMultiBodyConstraint.cpp ..\..\src\BulletDynamics\Featherstone\btMultiBodyConstraintSolver.cpp ..\..\src\BulletDynamics\Featherstone\btMultiBodyDynamicsWorld.cpp ..\..\src\BulletDynamics\Featherstone\btMultiBodyJointLimitConstraint.cpp ..\..\src\BulletDynamics\Featherstone\btMultiBodyJointMotor.cpp ..\..\src\BulletDynamics\Featherstone\btMultiBodyPoint2Point.cpp ..\..\src\BulletDynamics\MLCPSolvers\btDantzigLCP.cpp ..\..\src\BulletDynamics\MLCPSolvers\btMLCPSolver.cpp ..\..\src\BulletDynamics\Vehicle\btRaycastVehicle.cpp ..\..\src\BulletDynamics\Vehicle\btWheelInfo.cpp /MP 
+         btKinematicCharacterController.cpp
+         btConeTwistConstraint.cpp
+         btContactConstraint.cpp
+         btFixedConstraint.cpp
+         btGearConstraint.cpp
+         btGeneric6DofConstraint.cpp
+         btGeneric6DofSpringConstraint.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btConeTwistConstraint.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Character\btKinematicCharacterController.cpp': No such file or directory
+         btHinge2Constraint.cpp
+         btHingeConstraint.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btContactConstraint.cpp': No such file or directory
+         btPoint2PointConstraint.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btFixedConstraint.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.cpp': No such file or directory
+         btSequentialImpulseConstraintSolver.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btGearConstraint.cpp': No such file or directory
+         btSliderConstraint.cpp
+         btSolve2LinearConstraint.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btHinge2Constraint.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btHingeConstraint.cpp': No such file or directory
+         btTypedConstraint.cpp
+         btUniversalConstraint.cpp
+         btDiscreteDynamicsWorld.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.cpp': No such file or directory
+         btRigidBody.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.cpp': No such file or directory
+         btSimpleDynamicsWorld.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp': No such file or directory
+         Bullet-C-API.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btSliderConstraint.cpp': No such file or directory
+         btMultiBody.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btTypedConstraint.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.cpp': No such file or directory
+         btMultiBodyConstraint.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\ConstraintSolver\btUniversalConstraint.cpp': No such file or directory
+         btMultiBodyConstraintSolver.cpp
+         btMultiBodyDynamicsWorld.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Dynamics\Bullet-C-API.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Dynamics\btSimpleDynamicsWorld.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBody.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Dynamics\btRigidBody.cpp': No such file or directory
+         btMultiBodyJointLimitConstraint.cpp
+         btMultiBodyJointMotor.cpp
+         btMultiBodyPoint2Point.cpp
+         btDantzigLCP.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.cpp': No such file or directory
+         btMLCPSolver.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBodyConstraint.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBodyConstraintSolver.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBodyDynamicsWorld.cpp': No such file or directory
+         btRaycastVehicle.cpp
+         btWheelInfo.cpp
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBodyPoint2Point.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBodyJointLimitConstraint.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Featherstone\btMultiBodyJointMotor.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\MLCPSolvers\btMLCPSolver.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\MLCPSolvers\btDantzigLCP.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Vehicle\btWheelInfo.cpp': No such file or directory
+     1>c1xx : fatal error C1083: Cannot open source file: '..\..\src\BulletDynamics\Vehicle\btRaycastVehicle.cpp': No such file or directory
+     1>Done Building Project "C:\Users\Graham\Documents\GitHub\BACKUPOPENGLPROJECT\GP2LABS_GMACDO202\GP2LABS_GMACDO202\BulletDynamics.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.62
