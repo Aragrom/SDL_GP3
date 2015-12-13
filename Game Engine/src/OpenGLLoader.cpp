@@ -132,6 +132,10 @@ void OpenGLLoader::handleEvents()
 		switch (event.type)
 		{
 			case SDL_QUIT:
+			{
+				bIsActive = false;
+				break;
+			}
 			case SDL_WINDOWEVENT_CLOSE:
 			{
 				bIsActive = false;

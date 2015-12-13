@@ -12,7 +12,7 @@ SphereCollider::SphereCollider(float fRadius)
 {
 	m_Active = true;
 	m_Type = "Collider";
-	m_ColliderType = "SphereCollider";
+	setColliderType("SphereCollider");
 	m_fRadius = fRadius;
 }
 
@@ -20,7 +20,8 @@ bool SphereCollider::withinColliderCheckPointer(vec3 *pos)
 {
 	vec3 v3Center = m_Parent->getTransform()->getPosition();
 
-	//P1P2 |= (sq root)(x2?x1)2 + (y2?y1)2 + (z2?z1)2
+	//P1P2 |= (sq root)(x2-x1)2 + (y2-y1)2 + (z2-z1)2
+
 	float fDistance = (pos->x - v3Center.x) * (pos->x - v3Center.x) +
 		(pos->y - v3Center.y) * (pos->y - v3Center.y) +
 		(pos->z - v3Center.z) * (pos->z - v3Center.z);

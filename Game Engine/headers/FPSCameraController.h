@@ -4,22 +4,22 @@
 #include "Component.h"
 #include <glm/glm.hpp>
 using glm::vec3;
-
 #include <vector>
 
 class Camera;
 
-class FPSCameraController:public Component
+class FPSCameraController : public Component
 {
 public:
 
-    FPSCameraController();
-    ~FPSCameraController();
+	// Setters
+	void setCamera(Camera * camCam);
+	void setSpeed(float fSpeed);
+
+    FPSCameraController();	// Constructor
+    ~FPSCameraController();	// Deconstructor
     
-    void update();
-    
-    void setCamera(Camera * camCam);
-    void setSpeed(float fSpeed);
+	void update();
 
 	void addGameObjectToTargets(GameObject *go);
 

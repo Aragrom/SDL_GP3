@@ -5,17 +5,23 @@
 
 class Colours
 {
-private:
-	glm::vec3 m_ColourList[7];
-
 public:
+
 	enum colours
 	{
 		RED, YELLOW, GREEN, BLUE, PURPLE, WHITE, GREY
 	};
 
-	Colours();
+	// Getter
 	glm::vec3 getColour(colours colour);
+
+	// Setter
 	void setColourList();
+
+	Colours(); // Constructor
+
+private:
+
+	glm::vec3 m_ColourList[7];	// Stores array of vector 3 representing colour list
 };
 #endif
