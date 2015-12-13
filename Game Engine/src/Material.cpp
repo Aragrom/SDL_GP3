@@ -1,11 +1,3 @@
-//
-//  Material.c
-//  GP2BaseCode
-//
-//  Created by Brian on 31/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #include "Material.h"
 #include "Shader.h"
 #include "SDLTextureLoader.h"

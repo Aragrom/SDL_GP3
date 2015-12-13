@@ -1,11 +1,3 @@
-//
-//  Component.h
-//  GP2BaseCode
-//
-//  Created by Brian on 30/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef Component_h
 #define Component_h
 
@@ -17,36 +9,33 @@ class Component
 {
 public:
 
-    Component();
-    virtual ~ Component();
+    Component();	// Constructor
+    virtual ~ Component();	// Deconstructor
     
-    virtual void init();
-    
-    virtual void update();
-    
-    virtual void render();
-    
+	// VIRTUAL functions
+    virtual void init();    
+    virtual void update();    
+    virtual void render();    
     virtual void destroy();
     
+	// Getters
     const std::string& getType();
     const std::string& getName();
-    
+	GameObject * getParent();    
     bool isActive();
+
+	// Setters
+	void setParent(GameObject * object);
+	void setName(const std::string& name);
     
-    void toggleActive();
-    
-    void setParent(GameObject * object);
-    GameObject * getParent();
-    void setName(const std::string& name);
+    void toggleActive();	// Based on current state alternate
 
 protected:
 
-    std::string m_Type;
-    std::string m_Name;
-    bool m_Active;
-    GameObject * m_Parent;
-
-private:
+    std::string m_Type;			// Stores Component Type property
+    std::string m_Name;			// Stores String property for component name
+    bool m_Active;				// Component Active State
+    GameObject * m_Parent;		// GameObject that owns the component
 };
 
 #endif

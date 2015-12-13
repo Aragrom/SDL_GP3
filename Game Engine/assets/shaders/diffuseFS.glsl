@@ -7,5 +7,6 @@ in vec4 vertexColourOut;
 
 void main()
 {
-	FragColor = vertexColourOut;
+	//FragColor = vertexColourOut;
+	FragColor = vec4(0.3f,0.3f,0.3f,1.0f);
 }

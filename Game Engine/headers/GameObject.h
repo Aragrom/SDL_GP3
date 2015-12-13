@@ -1,11 +1,3 @@
-//
-//  GameObject.h
-//  GP2BaseCode
-//
-//  Created by Brian on 31/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef GameObject_h
 #define GameObject_h
 
@@ -19,25 +11,16 @@ class BaseMaterial;
 class Camera;
 class Light;
 class Collider;
+class Sphere;
 
 class GameObject
 {
 public:
-    GameObject();
-    ~GameObject();
     
-    void init();
+	// Setters
+	void addComponent(Component * component);
     
-    void update();
-    
-    void render();
-    
-    void destroy();
-    
-    void addComponent(Component * component);
-    void setName(const std::string& name);
-    const std::string& getName();
-    
+	void setName(const std::string& name);
     void setTransform(Transform * transform);
     void setMesh(Mesh * mesh);
 	void setMaterial(BaseMaterial * material);
@@ -47,9 +30,10 @@ public:
 
 	void addChild(GameObject * obj);
 	void setParent(GameObject *parent);
-    
-	GameObject *getParent();
 
+	// Getters    
+	GameObject *getParent();
+	const std::string& getName();
 	Transform * getTransform();
     Mesh *getMesh();
 	BaseMaterial *getMaterial();
@@ -62,19 +46,28 @@ public:
 
     Component * getComponentByType(const std::string& type);
     Component * getComponentByName(const std::string& name);
-protected:
+
+	GameObject();	// Constructor
+	~GameObject();	// Deconstructor
+	GameObject *gameObject; //For linking with self
+
+	void init();
+	void update();
+	void render();
+	void destroy();
+
 private:
-    std::vector<Component*> m_Components;
-	std::vector<GameObject*> m_Children;
-	std::string m_Name;
-    
-    Transform *m_Transform;
+
+    std::vector<Component*> m_Components;	// Store Vector of Pointers to Components that the GameObjects has
+	std::vector<GameObject*> m_Children;	// Store Vector of Pointers to GameObject representing the GameObjects children
+	
+	std::string m_Name;    
+    Transform *m_Transform;					
     Mesh *m_Mesh;
 	BaseMaterial *m_Material;
     Camera *m_Camera;
 	Light *m_Light;
 	Collider *m_Collider;
-
 	GameObject *m_Parent;
 };
 

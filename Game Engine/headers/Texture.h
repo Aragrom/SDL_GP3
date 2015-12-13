@@ -1,16 +1,7 @@
-/*
-=================
-cTexture.h
-- Header file for class definition - SPECIFICATION
-- Header file for the cD3DXTexture class
-=================
-*/
-
 #ifndef _TEXTURE_H
 #define _TEXTURE_H
 
 #include "GameConstants.h"
-#include "Texture.h"
 
 class Texture
 {

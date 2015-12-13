@@ -1,1 +1,43 @@
-#pragma once
+/*
+==========================================================================
+Enemy.h
+==========================================================================
+*/
+
+#ifndef _player_h
+#define _player_h
+
+#include "GameConstants.h"
+#include <vector>
+
+class Player
+{
+public:
+
+	//Setter
+	void setGameObject(GameObject *go) { m_gameObject = go; }
+	void setStartPosition(vec3 v3) { m_v3StartPosition = v3; }
+
+	//Getter
+	GameObject* getGameObject() { return m_gameObject; }
+	bool getIsFalling() { return m_bIsFalling; }
+
+	Player();
+	~Player();
+
+	void update();
+	void moveUsingGravity();
+	void checkOutOfBounds();
+	void setIsFalling(bool b);
+
+private:
+
+	GameObject *m_gameObject;
+	GameObject *m_bullet;
+	vec3 m_v3StartPosition;
+	float m_fFallVelocity;
+	bool m_bIsFalling;
+	int m_iLives;
+};
+
+#endif

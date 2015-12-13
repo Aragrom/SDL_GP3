@@ -35,6 +35,44 @@ void OpenGLLoader::initWindow(int width, int height, bool fullscreen)
 		);
 }
 
+void OpenGLLoader::onResize(int width, int height)
+{
+	//glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_LIGHTING);
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE_MODE);
+	glViewport(0, 0, width, height);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	// set the perspective with the appropriate aspect ratio
+	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0f, 100);
+
+	glMatrixMode(GL_MODELVIEW);
+
+	glLoadIdentity();
+}
+
+void OpenGLLoader::setOrtho2D(int width, int height)
+{
+	//glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_LIGHTING);
+	//glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE_MODE);
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	glOrtho(45.0f, width, height, 0, -1.0f, 1.0f);
+	glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+}
+
+void OpenGLLoader::setProjection3D(int width, int height)
+{
+	onResize(width, height);
+}
+
 //Function to initialise OpenGL
 void OpenGLLoader::initOpenGL()
 {	
@@ -94,6 +132,10 @@ void OpenGLLoader::handleEvents()
 		switch (event.type)
 		{
 			case SDL_QUIT:
+			{
+				bIsActive = false;
+				break;
+			}
 			case SDL_WINDOWEVENT_CLOSE:
 			{
 				bIsActive = false;
@@ -156,5 +198,16 @@ void OpenGLLoader::handleEvents()
 				break;
 			}
 		}
+	}
+
+	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_o))
+	{
+		std::cout << "[Othrographic View Mode]" << std::endl;
+		setOrtho2D(iWINDOW_WIDTH,iWINDOW_HEIGHT);
+	}
+	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_p))
+	{
+		std::cout << "[Perspective View Mode]" << std::endl;
+		setProjection3D(iWINDOW_WIDTH, iWINDOW_HEIGHT);
 	}
 }

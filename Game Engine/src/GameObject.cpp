@@ -1,11 +1,3 @@
-//
-//  GameObject.cpp
-//  GP2BaseCode
-//
-//  Created by Brian on 31/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
@@ -14,6 +6,7 @@
 #include "Camera.h"
 #include "Light.h"
 #include "Collider.h"
+#include "Sphere.h"
 
 GameObject::GameObject()
 {
@@ -22,13 +15,14 @@ GameObject::GameObject()
     m_Material=NULL;
     m_Camera=NULL;
 	m_Light = NULL;
+	m_Collider = NULL;
     m_Name="GameObject";
 	m_Parent = NULL;
 }
 
 GameObject::~GameObject()
 {
-    
+
 }
 
 void GameObject::init()
@@ -42,8 +36,6 @@ void GameObject::init()
 	{
 		(*iter)->init();
 	}
-
-    
 }
 
 void GameObject::update()
@@ -161,6 +153,7 @@ void GameObject::setLight(Light * light)
 void GameObject::setCollider(Collider *collider)
 {
 	m_Collider = collider;
+	collider->setParent(gameObject);
 }
 
 Transform * GameObject::getTransform()

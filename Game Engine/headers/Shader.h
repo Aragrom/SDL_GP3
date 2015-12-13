@@ -1,11 +1,3 @@
-//
-//  Shader.h
-//  GP2BaseCode
-//
-//  Created by Brian on 01/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef Shader_h
 #define Shader_h
 

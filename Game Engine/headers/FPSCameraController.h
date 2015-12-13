@@ -1,34 +1,25 @@
-//
-//  FPSCameraController.h
-//  GP2BaseCode
-//
-//  Created by Brian on 12/12/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-//  Adapted by Graham Alexander MacDonald
-
 #ifndef FPSCameraController_h
 #define FPSCameraController_h
 
 #include "Component.h"
 #include <glm/glm.hpp>
 using glm::vec3;
-
 #include <vector>
 
 class Camera;
 
-class FPSCameraController:public Component
+class FPSCameraController : public Component
 {
 public:
 
-    FPSCameraController();
-    ~FPSCameraController();
+	// Setters
+	void setCamera(Camera * camCam);
+	void setSpeed(float fSpeed);
+
+    FPSCameraController();	// Constructor
+    ~FPSCameraController();	// Deconstructor
     
-    void update();
-    
-    void setCamera(Camera * camCam);
-    void setSpeed(float fSpeed);
+	void update();
 
 	void addGameObjectToTargets(GameObject *go);
 

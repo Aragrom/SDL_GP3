@@ -1,11 +1,3 @@
-//
-//  Mouse.h
-//  GP2BaseCode
-//
-//  Created by Brian on 23/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef Mouse_h
 #define Mouse_h
 

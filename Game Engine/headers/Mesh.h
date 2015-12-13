@@ -1,11 +1,3 @@
-//
-//  Mesh.h
-//  GP2BaseCode
-//
-//  Created by Brian on 31/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef Mesh_h
 #define Mesh_h
 
@@ -22,6 +14,8 @@
 
 #include "Component.h"
 
+class Sphere;
+
 class Mesh:public Component
 {
 public:
@@ -34,16 +28,17 @@ public:
     
     void copyVertexData(int count,int stride,void ** data);
     void copyIndexData(int count,int stride,void ** data);
-    
+
     int getVertexCount();
     int getIndexCount();
+
 protected:
 private:
     int m_VertexCount;
     int m_IndexCount;
     GLuint m_VBO;
     GLuint m_EBO;
-    GLuint m_VAO;    
+    GLuint m_VAO;
 };
 
 #endif

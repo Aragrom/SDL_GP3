@@ -1,38 +1,31 @@
-//by Graham Alexander MacDonald and Adrian Lis
-#ifndef Collider_h
-#define Collider_h
+#ifndef COLLIDER_H
+#define COLLIDER_H
 
-#include "Component.h"
+#include "GameConstants.h"
 
-#include <glm/glm.hpp>
-using glm::vec3;
-
+// Base class for colliders
 class Collider : public Component
 {
 public:
 
-	Collider();
-	~Collider();
+	//Setters
+	void setColliderType(std::string strType) { m_ColliderType = strType; }
+	void setCollisionDetected(bool b) { m_bCollisionDetected = b; }
+	void setOffSet(vec3 v3) { m_v3OffSet = v3; }
 
-	bool checkForCollision(vec3 pos);
+	//Getters
+	std::string getColliderType() { return m_ColliderType; }
+	bool getCollisionDetected() { return m_bCollisionDetected; }
+	vec3 getOffSet() { return m_v3OffSet; }
 
-	float getLength();
-	float getHeight();
-	float getWidth();
-
-	void setLength(float x);
-	void setHeight(float y);
-	void setWidth(float z);
-
-	void setCentre(vec3 v3Centre);
+	Collider();		// Constructor
+	~Collider();	// Deconstructor
 
 private:
 
-	float m_fLength;
-	float m_fWidth;
-	float m_fHeight;
-
-	vec3 m_v3Centre;
+	vec3 m_v3OffSet;
+	bool m_bCollisionDetected;
+	std::string m_ColliderType;	// String representing Collider type
 };
 
 #endif

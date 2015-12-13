@@ -1,11 +1,3 @@
-//
-//  FPSCameraController.cpp
-//  GP2BaseCode
-//
-//  Created by Brian on 12/12/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #include <iostream>
 
 #include "FPSCameraController.h"

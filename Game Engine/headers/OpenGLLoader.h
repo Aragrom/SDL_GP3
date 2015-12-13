@@ -13,6 +13,9 @@ public:
 	void initOpenGL();
 	void setViewport(int width, int height);
 	void handleEvents();
+	void setOrtho2D(int width, int height);
+	void setProjection3D(int width, int height);
+	void onResize(int width, int height);
 
 	SDL_Window* getWindow();
 	SDL_GLContext getContext();

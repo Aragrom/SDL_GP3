@@ -6,6 +6,7 @@
 #include "Transform.h"
 
 #include <iostream>
+#include "glm\vec3.hpp"
 
 int level = 0; 
 
@@ -43,7 +44,7 @@ FbxString GetAttributeTypeName(FbxNodeAttribute::EType type) {
 	}
 }
 
-GameObject * loadFBXFromFile(const std::string& filename)
+GameObject * loadFBXFromFile(const std::string& filename, vec3 v3ObjectScale)
 {
 	GameObject *rootGo = NULL;
 	level = 0;
@@ -79,14 +80,14 @@ GameObject * loadFBXFromFile(const std::string& filename)
 		std::cout << "Root Node " << lRootNode->GetName() << std::endl;
 		for (int i = 0; i < lRootNode->GetChildCount(); i++)
 		{
-			processNode(lRootNode->GetChild(i), rootGo);
+			processNode(lRootNode->GetChild(i), rootGo, v3ObjectScale);
 		}
 	}
 
 	return rootGo;
 }
 
-void processNode(FbxNode *node,GameObject *rootGo)
+void processNode(FbxNode *node,GameObject *rootGo, vec3 v3ObjectScale)
 {
 	PrintTabs();
 	const char* nodeName = node->GetName();
@@ -105,17 +106,17 @@ void processNode(FbxNode *node,GameObject *rootGo)
 
 	// Print the node's attributes.
 	for (int i = 0; i < node->GetNodeAttributeCount(); i++){
-		processAttribute(node->GetNodeAttributeByIndex(i), go);
+		processAttribute(node->GetNodeAttributeByIndex(i), go, v3ObjectScale);
 	}
 
 	// Recursively print the children.
 	for (int j = 0; j < node->GetChildCount(); j++)
-		processNode(node->GetChild(j), rootGo);
+		processNode(node->GetChild(j), rootGo, v3ObjectScale);
 	level--;
 	PrintTabs();
 }
 
-void processAttribute(FbxNodeAttribute * attribute, GameObject * go)
+void processAttribute(FbxNodeAttribute * attribute, GameObject * go, vec3 v3ObjectScale)
 {
 	if (!attribute) return;
 	FbxString typeName = GetAttributeTypeName(attribute->GetAttributeType());
@@ -124,13 +125,13 @@ void processAttribute(FbxNodeAttribute * attribute, GameObject * go)
 	std::cout << "Attribute " << typeName.Buffer() << " Name " << attrName << std::endl;
 	switch (attribute->GetAttributeType()) {
 	case FbxNodeAttribute::eSkeleton: return;
-	case FbxNodeAttribute::eMesh: processMesh(attribute->GetNode()->GetMesh(),go);
+	case FbxNodeAttribute::eMesh: processMesh(attribute->GetNode()->GetMesh(),go, v3ObjectScale);
 	case FbxNodeAttribute::eCamera: return;
 	case FbxNodeAttribute::eLight: return;
 	}
 }
 
-void processMesh(FbxMesh * mesh, GameObject *go)
+void processMesh(FbxMesh * mesh, GameObject *go, vec3 v3ObjectScale)
 {
 	Mesh * meshComponent = new Mesh();
 	meshComponent->init();
@@ -144,7 +145,12 @@ void processMesh(FbxMesh * mesh, GameObject *go)
 	for (int i = 0; i < numVerts; i++)
 	{
 		FbxVector4 currentVert = mesh->GetControlPointAt(i);
-		pVerts[i].position = vec3(currentVert[0], currentVert[1], currentVert[2]);
+
+		//if (strObjectType =)
+		//{
+		pVerts[i].position = vec3(currentVert[0] / v3ObjectScale.x, currentVert[1] / v3ObjectScale.y, currentVert[2] / v3ObjectScale.z);
+
+		//}
 		pVerts[i].colours = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 		pVerts[i].texCoords = vec2(0.0f, 0.0f);
 		pVerts[i].binormals = vec3(0.0f, 0.0f, 0.0f);

@@ -1,11 +1,3 @@
-//
-//  Mouse.cpp
-//  GP2BaseCode
-//
-//  Created by Brian on 23/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #include "Mouse.h"
 
 Mouse::Mouse()

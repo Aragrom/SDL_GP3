@@ -1,11 +1,3 @@
-//
-//  Input.h
-//  GP2BaseCode
-//
-//  Created by Brian on 23/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef Input_h
 #define Input_h
 
@@ -25,43 +17,26 @@
 class Input
 {
 public:
-    Input();
-    ~Input();
+
+	// Getters
+	Keyboard * getKeyboard() { return m_Keyboard; };
+	Mouse * getMouse() { return m_Mouse; };
+	int getNumberofAttachedJoypads() { return m_AttachedJoypads.size(); };
+	Joypad * getJoypad(int playerIndex) { return m_AttachedJoypads[playerIndex]; }
+	static Input& getInput() { static Input input; return input; }
+
+    Input();	// Constructor
+    ~Input();	// Deconstructor
     
     bool init(const std::string& inputDBFilename);
-	void destroy();
-    
+	void destroy();    
     void update();
-    
-    Keyboard * getKeyboard()
-    {
-        return m_Keyboard;
-    };
-    
-    Mouse * getMouse()
-    {
-        return m_Mouse;
-    };
-    
-	int getNumberofAttachedJoypads()
-	{
-		return m_AttachedJoypads.size();
-	};
 
-	Joypad * getJoypad(int playerIndex)
-	{
-		return m_AttachedJoypads[playerIndex];
-	}
-    
-    static Input& getInput()
-    {
-        static Input input;
-        return input;
-    }
 private:
-    Keyboard * m_Keyboard;
-    Mouse * m_Mouse;
-	std::vector<Joypad*> m_AttachedJoypads;
+
+	Keyboard * m_Keyboard;	// Link Keyboard Object
+    Mouse * m_Mouse;		// Link Mouse Object
+	std::vector<Joypad*> m_AttachedJoypads;	// Representing vector of atatched JoyPads Objects
 };
 
 

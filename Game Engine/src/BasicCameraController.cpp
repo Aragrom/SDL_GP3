@@ -1,7 +1,3 @@
-/*
-Author Graham Alexander MacDonald
-*/
-
 #ifdef __APPLE__
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
@@ -36,6 +32,7 @@ BasicCameraController::BasicCameraController()
 	m_fObjectRotateSpeed = 1.0f;
 	m_cAxis = 'x';
 	m_iDir = 0;
+	m_bCanMove = true;
 }
 
 /*
@@ -44,6 +41,17 @@ Deconstructor
 BasicCameraController::~BasicCameraController()
 {
 
+}
+
+
+void BasicCameraController::setCanMove(bool b)
+{
+	m_bCanMove = b;
+}
+
+void BasicCameraController::setLookAngle(float f) 
+{
+	m_fAngle = f;
 }
 
 void BasicCameraController::setLookingAtTarget(bool b)
@@ -216,11 +224,11 @@ void BasicCameraController::update()
 	//Grab input
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_w))
 	{
-		moveCamera("forward");
+		if (m_bCanMove) moveCamera("forward");
 	}
 	else if (Input::getInput().getKeyboard()->isKeyDown(SDLK_s))
 	{
-		moveCamera("backward");
+		if (m_bCanMove) moveCamera("backward");
 	}
 
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_a))
@@ -248,21 +256,21 @@ void BasicCameraController::update()
 		//promptInputForLight();
 	}
 
-	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_t))
+	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_b))
 	{
 		std::cout << "[Polygon Mode: Line]" << std::endl;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
-	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_y))
+	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_n))
 	{
 		std::cout << "[Polygon Mode: Point]" << std::endl;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
 	}
-	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_u))
+	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_m))
 	{
 		std::cout << "[Polygon Mode: Fill]" << std::endl;
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

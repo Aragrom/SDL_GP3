@@ -1,11 +1,3 @@
-//
-//  Transform.h
-//  GP2BaseCode
-//
-//  Created by Brian on 31/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #ifndef Transform_h
 #define Transform_h
 
@@ -18,7 +10,7 @@ using glm::vec3;
 
 #include "Component.h"
 
-class Transform:public Component
+class Transform: public Component
 {
 public:
 

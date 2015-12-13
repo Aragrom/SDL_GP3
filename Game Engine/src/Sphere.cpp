@@ -1,25 +1,51 @@
 /*
 ==================================================================================
-cSphere.cpp
+Sphere.cpp
 ==================================================================================
 */
 
-/*#include "cSphere.h"
+#include "Sphere.h"
 
 
-Sphere::cSphere()
+Sphere::Sphere()
 {
-
+	setRotAngle(0.0f);
 }
 
-Sphere::cSphere(GLdouble dRadius, GLint dSlices, GLint dStacks)
+Sphere::Sphere(GLdouble dRadius, GLint dSlices, GLint dStacks)
 {
+	setRotAngle(0.0f);
 	sRadius = dRadius;
 	sSlices = dSlices;
 	sStacks = dStacks;
 }
 
-void Sphere::initialiseTexture(cTexture theTexture)
+void Sphere::render(float rotAngle)
+{
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
+
+
+	glBindTexture(GL_TEXTURE_2D, m_TextureID);
+
+	glTranslatef(m_Position.x, m_Position.y, m_Position.z);
+	glRotatef(90.0f, 1.0f, 0.0f, 0.0f); // Rotate Sphere to take account of gluSphere caps
+	glRotatef(getRotAngle(), 0, 0, 1);	// Rotation is now on z rather than Y to make sphere spin
+
+	gluSphere(quad, sRadius, sSlices, sStacks);
+
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+}
+
+void Sphere::initialise(Texture theTexture)
 {
 	quad = gluNewQuadric();
 
@@ -31,7 +57,7 @@ void Sphere::initialiseTexture(cTexture theTexture)
 
 }
 
-void Sphere::initialiseTexture(GLint theTextureID, glm::vec3 thePosition, glm::vec3 theTranslation)
+void Sphere::initialise(GLint theTextureID, glm::vec3 thePosition, glm::vec3 theTranslation)
 {
 	quad = gluNewQuadric();
 	m_TextureID = theTextureID;
@@ -44,4 +70,4 @@ void Sphere::initialiseTexture(GLint theTextureID, glm::vec3 thePosition, glm::v
 
 	glBindTexture(GL_TEXTURE_2D, m_TextureID);
 
-}*/
+}

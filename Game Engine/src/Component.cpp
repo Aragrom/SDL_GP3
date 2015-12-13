@@ -1,11 +1,3 @@
-//
-//  Component.cpp
-//  GP2BaseCode
-//
-//  Created by Brian on 30/10/2014.
-//  Copyright (c) 2014 Glasgow Caledonian University. All rights reserved.
-//
-
 #include "Component.h"
 #include "GameObject.h"
 
