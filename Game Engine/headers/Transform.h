@@ -10,7 +10,7 @@ using glm::vec3;
 
 #include "Component.h"
 
-class Transform: public Component
+class Transform:public Component
 {
 public:
 

@@ -17,7 +17,7 @@ BoxCollider::BoxCollider(float fWidth, float fHeight, float fLength)
 {
 	m_Active = true;
 	m_Type = "Collider";
-	setColliderType("BoxCollider");
+	m_ColliderType = "BoxCollider";
 	m_fWidth = fWidth;
 	m_fHeight = fHeight;
 	m_fLength = fLength;
@@ -26,7 +26,6 @@ BoxCollider::BoxCollider(float fWidth, float fHeight, float fLength)
 void BoxCollider::createColliderVertices()
 {
 	vec3 v3Center = m_Parent->getTransform()->getPosition();
-	v3Center = v3Center + getOffSet();
 
 	if (m_fLength != 0 && m_fWidth != 0 && m_fWidth != 0)
 	{
@@ -86,7 +85,6 @@ void BoxCollider::createColliderVertices()
 bool BoxCollider::withinColliderCheckPointer(vec3 *pos)
 {
 	vec3 v3Center = m_Parent->getTransform()->getPosition();
-	v3Center = v3Center + getOffSet();
 	v3Center = v3Center + vec3(0.0f, m_fHeight / 2.0f, 0.0f);
 
 	if (pos->x > (v3Center.x - (m_fLength / 2)) && pos->x < (v3Center.x + (m_fLength / 2)));
@@ -104,7 +102,6 @@ bool BoxCollider::withinColliderCheckPointer(vec3 *pos)
 bool BoxCollider::withinColliderCheck(vec3 pos)
 {
 	vec3 v3Center = m_Parent->getTransform()->getPosition();
-	v3Center = v3Center + getOffSet();
 	v3Center = v3Center + vec3(0.0f, m_fHeight/2.0f, 0.0f);
 
 	if (pos.x >(v3Center.x - (m_fLength / 2)) && pos.x < (v3Center.x + (m_fLength / 2)));

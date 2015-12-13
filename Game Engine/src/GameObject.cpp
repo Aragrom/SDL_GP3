@@ -153,6 +153,7 @@ void GameObject::setLight(Light * light)
 void GameObject::setCollider(Collider *collider)
 {
 	m_Collider = collider;
+	addComponent(collider);
 	collider->setParent(gameObject);
 }
 

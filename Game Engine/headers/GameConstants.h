@@ -42,11 +42,6 @@
 //using glm::vec4;
 //using glm::vec3;
 
-// Audio
-#include "OpenAL\al.h"
-#include "OpenAL\alc.h"
-#include "OpenAL\alut.h"
-
 // STL Container & Algorithms
 #include <vector>
 #include <map>
@@ -54,11 +49,6 @@
 
 // Textures
 #include "Texture.h"
-
-// Multi-Threading
-#include <omp.h>
-#include <stdio.h>
-#include <thread>
 
 // System includes
 #include "Vertex.h"
@@ -75,28 +65,17 @@
 #include "FBXLoader.h"
 #include "FPSCameraController.h"
 #include "BasicCameraController.h"
-#include "CustomShape.h"
+#include "Shape.h"
 #include "PostProcessing.h"
 #include "ColourFilters.h"
 #include "SkyboxMaterial.h"
 #include "Input.h"
 #include "Timer.h"
 #include "OpenGLLoader.h"
+#include "renderer.h"
 #include "SkyBox.h"
 #include "SceneManager.h"
-
-//Camera Window Width
-const int iWINDOW_WIDTH = 600;
-//Camera Window Height
-const int iWINDOW_HEIGHT = 480;
-
-enum eGraphicSystem { OpenGL, DirectX };
-
-const std::string ASSET_PATH = "../assets/";
-const std::string SHADER_PATH = "shaders/";
-const std::string TEXTURE_PATH = "textures/";
-const std::string FONT_PATH = "fonts/";
-const std::string MODEL_PATH = "models/";
+#include "Sphere.h"
 
 struct lightColour4
 {
@@ -110,9 +89,9 @@ struct lightColour4
 
 
 
-struct Colour3f
+struct colour3f
 {
-	Colour3f(float _r = 0.0f, float _g = 0.0f, float _b = 0.0f) : r(_r), g(_g), b(_b) {}
+	colour3f(float _r = 0.0f, float _g = 0.0f, float _b = 0.0f) : r(_r), g(_g), b(_b) {}
 
 	float r;	// Red
 	float g;	// Green
@@ -127,11 +106,22 @@ struct mdlDimensions {
 const float PLAYFIELDX = 100.0f;
 const float PLAYFIELDZ = 300.0f;
 
-extern vec3 V3_START_POSITION;
-
 extern int drawMode;
 extern float rotationAngle;
 extern float translationZ;
 extern bool fire;
+
+//Camera Window Width
+const int iWINDOW_WIDTH = 600;
+//Camera Window Height
+const int iWINDOW_HEIGHT = 480;
+
+enum eGraphicSystem { OpenGL, DirectX };
+
+const std::string ASSET_PATH = "../assets/";
+const std::string SHADER_PATH = "shaders/";
+const std::string TEXTURE_PATH = "textures/";
+const std::string FONT_PATH = "fonts/";
+const std::string MODEL_PATH = "models/";
 
 #endif

@@ -1,19 +1,13 @@
 #include "Light.h"
 #include "GameObject.h"
-#include <glm/glm.hpp>
-#include <iostream>
 
 Light::Light()
 {
 	m_DiffuseColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_SpecularColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-	m_LightDirection = vec3(1.0f, 1.0f, 1.0f);
+	m_SpecularColour = vec4(0.9f, 0.9f, 0.4f, 1.0f);
+	m_LightDirection = vec3(1.0f, 0.1f, 1.0f);
 	m_Type = "Light";
 	m_bGettingBrighter = true;
-
-	m_fAngle = 0.0f;
-	m_fSinX = 0.0f;
-	m_fCosZ = 0.0f;
 }
 
 Light::~Light()
@@ -53,32 +47,19 @@ void Light::setDirection(float x, float y, float z)
 
 void Light::update()
 {
-	//std::cout << "Light Updated" << std::endl;
+	std::string strName = m_Parent->getName();
 
-	m_fAngle += 0.01f;
-	m_fSinX = sin(m_fAngle);
-	m_fCosZ = -cos(m_fAngle);
-
-	m_LightDirection.x = m_fSinX;
-	m_LightDirection.z = m_fCosZ;
-
-	// Ping Pong style lighting
-	/*if (m_bGettingBrighter)
+	if (strName == "armordrecon")
 	{
-		if (m_LightDirection.x <= 2.0f)
+		if (m_bGettingBrighter)
 		{
-			m_LightDirection.x += 0.01f;
-			m_LightDirection.z += 0.01f;
+			if (m_LightDirection.y <= 1.0f) m_LightDirection.y += 0.0001f;
+			else m_bGettingBrighter = false;
 		}
-		else m_bGettingBrighter = false;
+		else
+		{
+			if (m_LightDirection.y > 0.001f) m_LightDirection.y -= 0.0001f;
+			else m_bGettingBrighter = true;
+		}
 	}
-	else
-	{
-		if (m_LightDirection.x >= -2.0f)
-		{
-			m_LightDirection.x -= 0.01f;
-			m_LightDirection.z -= 0.01f;
-		}
-		else m_bGettingBrighter = true;
-	}*/
 }

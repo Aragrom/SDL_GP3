@@ -32,7 +32,6 @@ BasicCameraController::BasicCameraController()
 	m_fObjectRotateSpeed = 1.0f;
 	m_cAxis = 'x';
 	m_iDir = 0;
-	m_bCanMove = true;
 }
 
 /*
@@ -41,17 +40,6 @@ Deconstructor
 BasicCameraController::~BasicCameraController()
 {
 
-}
-
-
-void BasicCameraController::setCanMove(bool b)
-{
-	m_bCanMove = b;
-}
-
-void BasicCameraController::setLookAngle(float f) 
-{
-	m_fAngle = f;
 }
 
 void BasicCameraController::setLookingAtTarget(bool b)
@@ -224,11 +212,11 @@ void BasicCameraController::update()
 	//Grab input
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_w))
 	{
-		if (m_bCanMove) moveCamera("forward");
+		moveCamera("forward");
 	}
 	else if (Input::getInput().getKeyboard()->isKeyDown(SDLK_s))
 	{
-		if (m_bCanMove) moveCamera("backward");
+		moveCamera("backward");
 	}
 
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_a))

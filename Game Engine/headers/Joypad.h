@@ -23,39 +23,55 @@ class Joypad
 		LEFT_TRIGGER=4,
 		RIGHT_TRIGGER=5,
 	};
-
 public:
+	Joypad(SDL_GameController * SDLController);
+	~Joypad();
 
-	// Getters
-	vec2& getLeftThumbstick() { return m_LeftThumbstick; };
-	vec2& getRightTumbstick() { return m_RightThumbstick; };
-	float getLeftTrigger() { return m_LeftTrigger; };
-	float getRightTrigger() { return m_RightTrigger; };
-
-	// Check Joypad Button State
-	bool isButtonDown(short buttonIndex) { return m_ButtonsDown[buttonIndex]; };
-	bool isButtonUp(short buttonIndex) { return m_ButtonsUp[buttonIndex]; };
-
-	Joypad(SDL_GameController * SDLController); // Constructor
-	~Joypad();	// Deconstructor
-
-	// Manage Joypad Button States
 	void setButtonUp(short buttonIndex);
 	void setButtonDown(short buttonIndex);
+
 	void setAxisValue(short axisID, int value);
 
-public:
+	bool isButtonDown(short buttonIndex)
+	{
+		return m_ButtonsDown[buttonIndex];
+	};
 
-	//Define Deadzone range
+	bool isButtonUp(short buttonIndex)
+	{
+		return m_ButtonsUp[buttonIndex];
+	};
+
+	vec2& getLeftThumbstick()
+	{
+		return m_LeftThumbstick;
+	};
+
+	vec2& getRightTumbstick()
+	{
+		return m_RightThumbstick;
+	};
+
+	float getLeftTrigger()
+	{
+		return m_LeftTrigger;
+	};
+
+	float getRightTrigger()
+	{
+		return m_RightTrigger;
+	};
+
+public:
 	const static int DeadzoneNeg = -3200;
 	const static int DeadzonePos = 3200;
-	const static int MAX_NO_OF_BUTTONS = 15;	//This assumes we are using a 360 Joypad
+	const static int MAX_NO_OF_BUTTONS = 15;
 
 private:
-
-	bool m_ButtonsDown[MAX_NO_OF_BUTTONS];		// Array of Joypad Buttons with 'Down' state
-	bool m_ButtonsUp[MAX_NO_OF_BUTTONS];		// Array of Joypad Buttons with 'Up' state
-	SDL_GameController *m_SDLController;		// stores JoyPad object
+	//This assumes we are using a 360 Joypad
+	bool m_ButtonsDown[MAX_NO_OF_BUTTONS];
+	bool m_ButtonsUp[MAX_NO_OF_BUTTONS];
+	SDL_GameController *m_SDLController;
 
 	vec2 m_LeftThumbstick;
 	vec2 m_RightThumbstick;

@@ -8,28 +8,28 @@ class BoxCollider : public Collider
 public:
 
 	//Getters
-	float getLength();								// Get Length of Box
-	float getHeight();								// Get Height of Box
-	float getWidth();								// Get Width of Box
-	std::vector<vec3*> getColliderVertices();		// Get X, Y and Z for each Vertice as a vector
+	float getLength();
+	float getHeight();
+	float getWidth();
+	std::vector<vec3*> getColliderVertices();
 
 	//Setters
-	void setLength(float x);						// Set Length of Box
-	void setHeight(float y);						// Set Height of Box
-	void setWidth(float z);							// Set Width of Box
+	void setLength(float x);
+	void setHeight(float y);
+	void setWidth(float z);
 
 	BoxCollider(float fWidth, float fHeight, float fLength); //Constructor
 
-	void createColliderVertices();							// Creates vertices based on Transform Components Position (as a center)
-	bool withinColliderCheckPointer(vec3 *pos);				// Check pointer for vector 3 in Box Collider's boundings
-	bool withinColliderCheck(vec3 pos);						// Check for vector 3 in Box Collider's boundings
-	bool withinColliderCheck(BoxCollider *boxCollider);		// Takes a Box Collider, Using its vertices checks each one within the Box Collider's Boundings
+	void createColliderVertices();
+	bool withinColliderCheckPointer(vec3 *pos);
+	bool withinColliderCheck(vec3 pos);
+	bool withinColliderCheck(BoxCollider *boxCollider);
 
 private:
 
-	std::vector<vec3*> m_colliderVertices;		// Holds vertices for Box Collider
-	float m_fLength;							// Length of Box
-	float m_fWidth;								// Width of Box
-	float m_fHeight;							// Height of Box
+	std::vector<vec3*> m_colliderVertices;
+	float m_fLength;
+	float m_fWidth;
+	float m_fHeight;
 };
 #endif

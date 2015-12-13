@@ -1,15 +1,8 @@
-/*
-==================================================================================
-cCube.cpp
-==================================================================================
-*/
-
 #include "Cube.h"
-
 
 Cube::Cube()
 {
-	setRotAngle(0.0f);
+	//setRotAngle(0.0f);
 }
 
 void Cube::render(float rotAngle)
@@ -20,7 +13,7 @@ void Cube::render(float rotAngle)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY); // Lab 2/3
 
 	glVertexPointer(3, GL_FLOAT, 0, 0);
-	glTexCoordPointer(2, GL_FLOAT, 0,0);
+	glTexCoordPointer(2, GL_FLOAT, 0, 0);
 
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
@@ -63,7 +56,7 @@ void Cube::loadTextureCoords()   // Lab 2/3
 	m_TextureIndices[23] = glm::vec2(0.0f, 1.0f);
 }
 
-void Cube::initialise(Texture theTexture)
+/*void Cube::initialise(Texture texture)
 {
 	m_topLeftFront = glm::vec3(-1.0f, 1.0f, 1.0f);
 	m_bottomLeftFront = glm::vec3(-1.0f, -1.0f, 1.0f);
@@ -146,13 +139,13 @@ void Cube::initialise(Texture theTexture)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_VertexBufferObjects[1]); //Bind the vertex buffer 
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * sizeof(m_Indices), &m_Indices[0], GL_STATIC_DRAW); //Send the data to OpenGL 
 
-	// Lab 2/3
-	// Create and Bind VBO for Texture
-	//Bind the Texture coordinate array, and set the Texture coordinate pointer to point at it
+																											  // Lab 2/3
+																											  // Create and Bind VBO for Texture
+																											  //Bind the Texture coordinate array, and set the Texture coordinate pointer to point at it
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[2]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(m_TextureIndices), &m_TextureIndices[0], GL_STATIC_DRAW); //Send the data to OpenGL
 
-	glBindTexture(GL_TEXTURE_2D, theTexture.getTexture());
+	glBindTexture(GL_TEXTURE_2D, texture.getTexture());
 
 	// Lab 2/3
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferObjects[2]);
@@ -164,4 +157,5 @@ void Cube::initialise(Texture theTexture)
 
 	glTranslatef(0.0f, 0.0f, -6.0f);
 	glRotatef(30.0f, 0.0f, 1.0f, 0.0f);
-}
+
+}*/

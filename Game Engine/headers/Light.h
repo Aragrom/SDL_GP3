@@ -11,32 +11,28 @@ class Light :public Component
 {
 public:
 
-	Light();	// Constructor
-	~Light();	// Deconstructor
+	Light();
+	~Light(); 
 
-	// Getters
 	vec4& getDiffuseColour();
-	vec4& getSpecularColour();
-	vec3& getDirection();
-
-	// Setters
 	void setDiffuseColour(float r, float g, float b, float a);
+
+	vec4& getSpecularColour();
 	void setSpecularColour(float r, float g, float b, float a);
+
+	vec3& getDirection();
 	void setDirection(float x, float y, float z);
 
 	void update();
 
 private:
 
-	float m_fAngle;										// Current rotation
-	float m_fSinX;										// Value for Rotating
-	float m_fCosZ;										// Value for Rotating
+	vec4 m_DiffuseColour;
+	vec4 m_SpecularColour;
 
-	// Light Properties
-	vec4 m_DiffuseColour;		// Base colour
-	vec4 m_SpecularColour;		// Highlight colour
-	vec3 m_LightDirection;		// Direction of light (Theory: Infinite distance - 'Sun')
-	bool m_bGettingBrighter;	// Used for alternating the updating of the light direction
+	vec3 m_LightDirection;
+
+	bool m_bGettingBrighter;
 };
 
 #endif

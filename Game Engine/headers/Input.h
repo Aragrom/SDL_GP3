@@ -17,26 +17,43 @@
 class Input
 {
 public:
-
-	// Getters
-	Keyboard * getKeyboard() { return m_Keyboard; };
-	Mouse * getMouse() { return m_Mouse; };
-	int getNumberofAttachedJoypads() { return m_AttachedJoypads.size(); };
-	Joypad * getJoypad(int playerIndex) { return m_AttachedJoypads[playerIndex]; }
-	static Input& getInput() { static Input input; return input; }
-
-    Input();	// Constructor
-    ~Input();	// Deconstructor
+    Input();
+    ~Input();
     
     bool init(const std::string& inputDBFilename);
-	void destroy();    
+	void destroy();
+    
     void update();
+    
+    Keyboard * getKeyboard()
+    {
+        return m_Keyboard;
+    };
+    
+    Mouse * getMouse()
+    {
+        return m_Mouse;
+    };
+    
+	int getNumberofAttachedJoypads()
+	{
+		return m_AttachedJoypads.size();
+	};
 
+	Joypad * getJoypad(int playerIndex)
+	{
+		return m_AttachedJoypads[playerIndex];
+	}
+    
+    static Input& getInput()
+    {
+        static Input input;
+        return input;
+    }
 private:
-
-	Keyboard * m_Keyboard;	// Link Keyboard Object
-    Mouse * m_Mouse;		// Link Mouse Object
-	std::vector<Joypad*> m_AttachedJoypads;	// Representing vector of atatched JoyPads Objects
+    Keyboard * m_Keyboard;
+    Mouse * m_Mouse;
+	std::vector<Joypad*> m_AttachedJoypads;
 };
 
 

@@ -1,28 +1,19 @@
-/*
-==========================================================================
-Cube.h
-==========================================================================
-*/
-
 #ifndef _CUBE_H
 #define _CUBE_H
 
-#include "windowOGL.h"
 #include "glm\glm.hpp"
-#include "glx\glext.h"
-#include "wglext.h"
+#include "GameObject.h"
+#include "GL\glew.h"
 #include <vector>
 #include "Colours.h"
-#include "Shapes.h"
 
-class Cube : public Shapes
+class Cube
 {
 public:
-
-	Cube();		// Constructor
-	virtual void render(float rotAngle);			// Render to active buffer
-	virtual void initialise(Texture theTexture);	// Intialise Cube with a texture
-	void loadTextureCoords();						// Load texture indices
+	Cube();
+	virtual void render(float rotAngle);
+	//virtual void initialise(Texture theTexture);
+	void loadTextureCoords();  // Lab 2/3
 
 private:
 
@@ -35,14 +26,14 @@ private:
 	glm::vec3 m_bottomLeftBack;
 	glm::vec3 m_bottomRightBack;
 
-	glm::vec3 m_Faces[24];		// Array of Vector 3 representing Faces
-	GLuint m_Indices[36];		// Array of GLuint representing the cubes indices
+	glm::vec3 m_Faces[24];
+	GLuint m_Indices[36];
 
-	std::vector<glm::vec3> m_vertices;		// Stores Vector of vector 3 representing the cubes vertices
-	std::vector<glm::vec3> m_colourList;	// Stores Vector of vector 3 representing the cubes colour list
-	GLuint m_VertexBufferObjects[3];		// Vertex Buffer Object
-	glm::vec2 m_TextureIndices[24];			// Store Array of vec 2 representing texture coordinates
-	GLuint m_TextureID;						// Stores GLuint representing the texture using an ID
+	std::vector<glm::vec3> m_vertices;
+	std::vector<glm::vec3> m_colourList;
+	GLuint m_VertexBufferObjects[3];
+	glm::vec2 m_TextureIndices[24];
+	GLuint m_TextureID;
 
 };
 
