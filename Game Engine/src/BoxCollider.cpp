@@ -2,17 +2,6 @@
 
 #include "BoxCollider.h"
 
-//Getters
-float BoxCollider::getLength() { return m_fLength; }
-float BoxCollider::getWidth() {	return m_fWidth; }
-float BoxCollider::getHeight() { return m_fHeight; }
-std::vector<vec3*> BoxCollider::getColliderVertices() { return m_colliderVertices; }
-
-//Setters
-void BoxCollider::setLength(float x) { m_fLength = x; }
-void BoxCollider::setHeight(float y) { m_fHeight = y; }
-void BoxCollider::setWidth(float z) { m_fWidth = z; }
-
 BoxCollider::BoxCollider(float fWidth, float fHeight, float fLength)
 {
 	m_Active = true;
@@ -21,6 +10,11 @@ BoxCollider::BoxCollider(float fWidth, float fHeight, float fLength)
 	m_fWidth = fWidth;
 	m_fHeight = fHeight;
 	m_fLength = fLength;
+}
+
+BoxCollider::~BoxCollider()
+{
+	m_colliderVertices.clear();
 }
 
 void BoxCollider::createColliderVertices()

@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Vertex.h"
 
+// Constructor
 Mesh::Mesh()
 {
     m_VertexCount=0;
@@ -12,11 +13,13 @@ Mesh::Mesh()
     m_Type="Mesh";
 }
 
+// Deconstructor
 Mesh::~Mesh()
 {
     
 }
 
+// Generate and bind Vertex Array Object to hold the Vertex Buffer Object and Element Buffer Object
 void Mesh::init()
 {
 	glGenVertexArrays(1, &m_VAO);
@@ -31,6 +34,7 @@ void Mesh::init()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 }
 
+// Memory clean up
 void Mesh::destroy()
 {
 	glDeleteBuffers(1, &m_VBO);
@@ -38,6 +42,7 @@ void Mesh::destroy()
 	glDeleteVertexArrays(1, &m_VAO);
 }
 
+// Binds the buffers to the pipeline
 void Mesh::bind()
 {
     glBindVertexArray(m_VAO);
@@ -46,6 +51,8 @@ void Mesh::bind()
 
 }
 
+// Recieves data from FBX Loader and Custom Shape
+// (DATA_COUNT, SIZE_OF_EACH_STEP, DATA)
 void Mesh::copyVertexData(int count,int stride,void ** data)
 {
 	m_VertexCount = count;
@@ -53,20 +60,12 @@ void Mesh::copyVertexData(int count,int stride,void ** data)
 	glBufferData(GL_ARRAY_BUFFER, count * stride, data, GL_STATIC_DRAW);
 }
 
+// Recieves data from FBX Loader and Custom Shape
+// (DATA_COUNT, SIZE_OF_EACH_STEP, DATA)
 void Mesh::copyIndexData(int count,int stride,void ** data)
 {
 	m_IndexCount = count;
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * stride, data, GL_STATIC_DRAW);
-}
-
-int Mesh::getVertexCount()
-{
-    return m_VertexCount;
-}
-
-int Mesh::getIndexCount()
-{
-    return m_IndexCount;
 }
 

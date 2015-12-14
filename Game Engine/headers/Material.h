@@ -19,62 +19,64 @@ using glm::vec4;
 
 #include "Component.h"
 
-class BaseMaterial :public Component{
+class BaseMaterial :public Component
+{
 public:
-	BaseMaterial()
-	{
-		m_Type = "BaseMaterial";
-	};
-	virtual ~BaseMaterial(){}
 
-	virtual void bind(){};
-	virtual void unbind(){};
+	BaseMaterial() { m_Type = "BaseMaterial"; };	// Constructor
+	virtual ~BaseMaterial(){ }						// Deconstructor
+
+	virtual void bind(){};							// Virtual
+	virtual void unbind(){};						// Virtual
 
 	bool loadShader(const std::string& vsFilename, const std::string& fsFilename);
 	GLint getUniformLocation(const std::string& name);
+
 protected:
-	GLuint m_ShaderProgram;
+
+	GLuint m_ShaderProgram;		// Shader Program
 };
 
-class Material :public BaseMaterial{
+class Material :public BaseMaterial
+{
 public:
-    Material();
-    ~Material();
+
+    Material();				// Constructor
+    ~Material();			// Deconstructor
     
-    void destroy();
-    
-    void bind();    
+    void destroy();			// Memory Manage    
+    void bind();			// Bind Shader Program and texture to pipeline
 	
+	// Getters
 	vec4& getAmbientColour();
-	void setAmbientColour(float r, float g, float b, float a);
-
 	vec4& getDiffuseColour();
-	void setDiffuseColour(float r, float g, float b, float a);
-
 	vec4& getSpecularColour();
-	void setSpecularColour(float r, float g, float b, float a);
-
 	float getSpecularPower();
+	GLuint getDiffuseMap();
+	GLuint getSpecularMap();
+	GLuint getBumpMap();
+	GLuint getHeightMap();
+
+	// Setters
+	void setAmbientColour(float r, float g, float b, float a);
+	void setDiffuseColour(float r, float g, float b, float a);
+	void setSpecularColour(float r, float g, float b, float a);
 	void setSpecularPower(float power);
 
+	// Load textures using string and store it as its texture variable
 	void loadDiffuseMap(const std::string& filename);
-	GLuint getDiffuseMap();
-
 	void loadSpecularMap(const std::string& filename);
-	GLuint getSpecularMap();
-
 	void loadBumpMap(const std::string& filename);
-	GLuint getBumpMap();
-
 	void loadHeightMap(const std::string& filename);
-	GLuint getHeightMap();
-protected:
+
 private:
 
-	vec4 m_AmbientColour;
-	vec4 m_DiffuseColour;
-	vec4 m_SpecularColour;
-	float m_SpecularPower;
+	vec4 m_AmbientColour;		// Colour under light
+	vec4 m_DiffuseColour;		// Base Colour
+	vec4 m_SpecularColour;		// Highlight colour
+	float m_SpecularPower;		// Amount of highlight
+
+	// GLuints representing loaded textures
 	GLuint m_DiffuseMap;
 	GLuint m_SpecularMap;
 	GLuint m_BumpMap;

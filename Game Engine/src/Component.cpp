@@ -1,6 +1,7 @@
 #include "Component.h"
 #include "GameObject.h"
 
+// Constructor
 Component::Component()
 {
     m_Type="Component";
@@ -9,62 +10,32 @@ Component::Component()
     m_Active=true;
 }
 
+// Deconstructor
 Component::~Component()
 {
     
 }
 
+// Virtual
 void Component::init()
 {
     
 }
 
+// Virtual
 void Component::update()
 {
     
 }
 
+// Virtual
 void Component::render()
 {
     
 }
 
+// Virtual
 void Component::destroy()
 {
     
-}
-
-const std::string& Component::getType()
-{
-    return m_Type;
-}
-
-bool Component::isActive()
-{
-    return m_Active;
-}
-
-void Component::toggleActive()
-{
-    m_Active=!m_Active;
-}
-
-void Component::setParent(GameObject *object)
-{
-    m_Parent=object;
-}
-
-const std::string& Component::getName()
-{
-    return m_Name;
-}
-
-void Component::setName(const std::string& name)
-{
-    m_Name=name;
-}
-
-GameObject * Component::getParent()
-{
-    return m_Parent;
 }

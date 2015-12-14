@@ -17,7 +17,29 @@ using namespace std;
 
 class Sound
 {
+public:
+	Sound();
+	~Sound();
+
+	void loadWAVFile(LPCSTR filename);		// Load the sound using an address
+	void playAudio( ALboolean sndLoop);		// Set to play on sound on loop
+	void stopAudio();						// Set this audio sound playing
+	void cleanUp();							// Manage resources
+
 private:
+
+	// Custom Sound Structure
+	struct FMTCHUNK {
+		short format;
+		short channels;
+		unsigned long srate;
+		unsigned long bps;
+		short balign;
+		short samp;
+	};
+
+	// Load the sound using an address
+	void LoadWAVInfo(ifstream &filename, string &name, unsigned int &size);
 
 	char*        m_OALData;			// Data for the buffer
 	ALenum       m_OALFormat;		// Buffer format
@@ -33,26 +55,5 @@ private:
 	ALboolean    m_OALbEAX;			// For EAX 2.0 support
 	ALboolean    m_alLoop;			// Loop
 
-	// Custom Sound Structure
-	struct FMTCHUNK {
-		short format;
-		short channels;
-		unsigned long srate;
-		unsigned long bps;
-		short balign;
-		short samp;
-	};
-
-	// Load the sound using an address
-	void LoadWAVInfo(ifstream &filename, string &name, unsigned int &size);
-
-public:
-	Sound();
-	~Sound();
-
-	void loadWAVFile(LPCSTR filename);		// Load the sound using an address
-	void playAudio( ALboolean sndLoop);		// Set to play on sound on loop
-	void stopAudio();						// Set this audio sound playing
-	void cleanUp();							// Manage resources
 };
 #endif

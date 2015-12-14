@@ -61,19 +61,19 @@ void Enemy::move()
 	switch (m_iDirection) 
 	{
 	case eMoveDirections::NORTH:
-		v3Cur = v3Cur + vec3(0.0f,0.0f,-0.001f);
+		v3Cur = v3Cur + vec3(0.0f,0.0f,-0.02f);
 		t->setPosition(v3Cur.x, v3Cur.y, v3Cur.z);
 		break;
 	case eMoveDirections::EAST:
-		v3Cur = v3Cur + vec3(-0.001f, 0.0f, 0.0f);
+		v3Cur = v3Cur + vec3(-0.02f, 0.0f, 0.0f);
 		t->setPosition(v3Cur.x, v3Cur.y, v3Cur.z);
 		break;
 	case eMoveDirections::SOUTH:
-		v3Cur = v3Cur + vec3(0.0f, 0.0f, 0.001f);
+		v3Cur = v3Cur + vec3(0.0f, 0.0f, 0.02f);
 		t->setPosition(v3Cur.x, v3Cur.y, v3Cur.z);
 		break;
 	case eMoveDirections::WEST:
-		v3Cur = v3Cur + vec3(0.001f, 0.0f, 0.0f);
+		v3Cur = v3Cur + vec3(0.02f, 0.0f, 0.0f);
 		t->setPosition(v3Cur.x, v3Cur.y, v3Cur.z);
 		break;
 

@@ -2,16 +2,19 @@
 #include "SDLTextureLoader.h"
 #include "Vertex.h"
 
+// Constructor
 SkyBoxMaterial::SkyBoxMaterial()
 {
 	m_CubeTexture = 0;
 }
 
+// Deconstructor
 SkyBoxMaterial::~SkyBoxMaterial()
 {
 
 }
 
+// Memory Management
 void SkyBoxMaterial::destroy()
 {
 	if (m_CubeTexture)
@@ -20,12 +23,13 @@ void SkyBoxMaterial::destroy()
 	}
 }
 
+// Using Shader Program bind the texture getting and using its attributes
 void SkyBoxMaterial::bind()
 {
-	glDepthMask(GL_FALSE);
-	glUseProgram(m_ShaderProgram);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, m_CubeTexture);
+	glDepthMask(GL_FALSE);				// Disable Depth Mask
+	glUseProgram(m_ShaderProgram);		// Using the Shader Program
+	glActiveTexture(GL_TEXTURE0);		// Define type of texture
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_CubeTexture);		//
 
 	GLint vertexPosLocation = glGetAttribLocation(m_ShaderProgram, "vertexPosition");
 	glBindAttribLocation(m_ShaderProgram, vertexPosLocation, "vertexPosition");

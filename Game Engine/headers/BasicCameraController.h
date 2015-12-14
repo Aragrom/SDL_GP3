@@ -27,6 +27,12 @@ public:
 
 	// Getters
 	bool getLookingAtTarget();
+	int getDir() { return m_iDir; }
+	bool getViewMode() { return m_bViewMode; }
+	float getCameraAngle() { return m_fAngle; }
+
+	bool checkCameraPosition();						// Used for checking camera position against 'Scene View Position'
+	void toggleViewMode();							// For changing camera position and limiting player movement
 
 	void addGameObjectToTargets(GameObject *go);	// Add GameObject the camera can target specifically
 	void iterateThroughTargets();					// Iterates through count that tracks the object the camera is look at
@@ -38,8 +44,6 @@ public:
 	void rotateObject(int iDir);					// Rotates GameObject targetted by camera
 	void moveObject(std::string strDir);			// Move GameObject based on string representing direction
 
-	int getDir();									// Gets current moving direction
-
 	void update();
 	void Destroy();
 
@@ -47,6 +51,10 @@ protected:
 
 private:
 
+	const vec3 V3_VIEW_POSITION = vec3(250.0f, 50.0f, 270.0f);
+	vec3 v3SavedPosition;								// Used when toggling camera modes
+	vec3 v3SavedRotation;								// Used when toggling camera modes
+	bool m_bViewMode;									// Using bool state control camera position for 'Viewing Entire Scene' and 'player view' ("Two camera" set up)
 	bool m_bLookAtTarget;								// Stores value if the camera is targetting objects
 	char m_cAxis;										// The axis currently being moved
 

@@ -6,31 +6,17 @@
 #include "GameConstants.h"
 #include "FontManager.h"
 #include "SoundManager.h"
-
-#include "windowOGL.h"
 #include "Colours.h"
-#include "Shapes.h"
-#include "Pyramid.h"
-#include "Cube.h"
-#include "Sphere.h"
 
-#include "cMaterial.h"
+OpenGLLoader *openGLLoader;		// Inits windows and process events
+PostProcessing postProcessor;	// For post processing effects
+SceneManager *sceneManager;		// For managing and updating GameObjects and Game Logic
+SoundManager* soundManager;		// For managing sounds
 
-OpenGLLoader *openGLLoader;
-PostProcessing postProcessor;
-SceneManager *sceneManager;
-
-int iGraphicSystem = OpenGL;
-bool bRunning = true;
-bool bDebug = false;
-
-windowOGL windOGL;
-
-// Sphere
-Sphere thePlanet;
-Texture planetTexture;
-cMaterial planetMaterial;
-float fRotSpeed;
+int iGraphicSystem = OpenGL;	// Current graphic implementation (SDL)
+bool bRunning = true;			// True when game is running
+bool bDebug = false;			// True when game is in debug mode
+bool bAudio = true;				// Stops audio from playing when false (toggled)
 
 //==============================================================================
 // Handles the releasing of memory for required resources
@@ -42,7 +28,7 @@ void cleanUp()
 	// clean up, reverse order!!!
 	Input::getInput().destroy();
 
-	windOGL.shutdown(); //Free any resources
+	// TO DO : Close fonts (IF CREATED)
 	openGLLoader->cleanUp();
 }
 
@@ -62,7 +48,11 @@ void update()
 {
     Timer::getTimer().update();
 
-	sceneManager->updateGameObjects();
+	if (sceneManager->update() && bAudio)
+	{		
+		std::cout << "Played Player 'Hit' Sound" << std::endl;
+		soundManager->getSnd("Hit")->playAudio(AL_TRUE);
+	}
 
 	Input::getInput().update();
 }
@@ -121,8 +111,12 @@ void renderGameObject(GameObject * pObject)
 		vec4 diffuseLightColour = light->getDiffuseColour();
 		vec4 specularLightColour = light->getSpecularColour();
 
-		vec3 lightDirection = light->getDirection();											// Get Main Light Direction
-		vec3 cameraPosition = sceneManager->getMainCamera()->getTransform()->getPosition();		// Get Main Camera Position
+		vec3 lightDirection;										// Get Main Light Direction
+
+		lightDirection = light->getDirection();
+		
+		vec3 cameraPosition = sceneManager->getMainCamera()->getTransform()->getPosition(); // Get Main Camera Position
+		
 
 		// Define Uniforms for Drawing Elements
 		glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, glm::value_ptr(Model));
@@ -160,7 +154,7 @@ void renderGameObject(GameObject * pObject)
 }
 
 //Function to render(aka draw)
-void render(FontManager* fontManager)
+void render()
 {
 	//Bind Framebuffer
 	//postProcessor.bind();
@@ -172,27 +166,17 @@ void render(FontManager* fontManager)
 
 	std::vector<GameObject*> gameObjects = sceneManager->getGameObjects();
 
-	//openGLLoader->setProjection3D(iWINDOW_WIDTH, iWINDOW_HEIGHT);
-
 	//alternative sytanx
 	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++)
 	{
 		renderGameObject((*iter));
 	}
 
-	//windOGL.initOGL(iWINDOW_WIDTH,iWINDOW_HEIGHT);
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-	//thePlanet.setRotAngle(thePlanet.getRotAngle() + 0.0f);
-	//thePlanet.prepare(thePlanet.getRotAngle());					//Do any pre-rendering logic
-	//planetMaterial.useMaterial();									// Set the material for use
-	//thePlanet.render(thePlanet.getRotAngle());
+	// Enable alpha channel for transparency
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	//glPushMatrix();
-	//openGLLoader->setOrtho2D(iWINDOW_WIDTH, iWINDOW_HEIGHT);
-	//fontManager->getFont("DrWho")->printText("Tardis Wars", FTPoint(0.0f, 0.0f, 0.0f), Colour3f(0.0f, 255.0f, 0.0f));
-	//theFontMgr->getFont("DrWho")->printText(outputMsg.c_str(), FTPoint(850, 35, 0.0f), Colour3f(255.0f, 255.0f, 0.0f)); // uses c_str to convert string to LPCSTR
-	//glPopMatrix();
+
 
 	//now switch to normal framebuffer
 	//postProcessor.preDraw();
@@ -251,13 +235,10 @@ int main(int argc, char * arg[])
 			std::cout << "TTF_Init: " << TTF_GetError();
 		}
 
-		if (!windOGL.initOGL(iWINDOW_WIDTH, iWINDOW_HEIGHT)) //Initialize our example
-		{
-			std::cout << "Could not initialize the application" << std::endl;
-			return 1;
-		}
+		//==============================================================================
+		// Font Manager instantiation
+		//==============================================================================
 
-		// Font manager
 		FontManager *fontManager = FontManager::getInstance();
 		// Load Fonts
 		LPCSTR gameFonts[3] = { "../assets/fonts/digital-7.ttf", "../assets/fonts/space age.ttf", "../assets/fonts/doctor_who.ttf" };
@@ -265,16 +246,22 @@ int main(int argc, char * arg[])
 		fontManager->addFont("Space", gameFonts[1], 24);
 		fontManager->addFont("DrWho", gameFonts[2], 48);
 
-		// This is the sound manager
-		static SoundManager* soundManager = SoundManager::getInstance();
+		//==============================================================================
+		// Sound Manager instantiation
+		//==============================================================================
+		soundManager = SoundManager::getInstance();
 		// Load Sound
 		LPCSTR gameSounds[3] = { "../assets/Audio/who10Edit.wav", "../assets/Audio/shot007.wav", "../assets/Audio/explosion2.wav" };
 
 		soundManager->add("Theme", gameSounds[0]);
-		soundManager->add("Shot", gameSounds[1]);
+		soundManager->add("Hit", gameSounds[1]);
 		soundManager->add("Explosion", gameSounds[2]);
 
 		soundManager->getSnd("Theme")->playAudio(AL_LOOPING); // Start background music
+
+		//==============================================================================
+		// SDL instantiation
+		//==============================================================================
 
 		openGLLoader = new OpenGLLoader();
 		openGLLoader->initWindow(iWINDOW_WIDTH, iWINDOW_HEIGHT, false);
@@ -283,34 +270,68 @@ int main(int argc, char * arg[])
 		openGLLoader->checkForErrors();
 		//Set our viewport
 		openGLLoader->setViewport(iWINDOW_WIDTH, iWINDOW_HEIGHT);
-		initInput();
 
-		// Sphere
-		thePlanet = Sphere(3, 30, 30);
-		planetTexture.createTexture("../assets/Images/Earth.png");
-		fRotSpeed = 3.0f;
-		thePlanet.initialise(planetTexture.getTexture(), glm::vec3(0, 0, 20), glm::vec3(0, 0, 0));
-		planetMaterial= cMaterial(lightColour4(0.2f, 0.2f, 0.2f, 1.0f), lightColour4(1.0f, 1.0f, 1.0f, 1.0f), lightColour4(1.0f, 1.0f, 1.0f, 1.0f), lightColour4(0, 0, 0, 1.0f), 50.0f);
+		//==============================================================================
+		// Initialize Input
+		//==============================================================================
+		initInput();
 		
-		//Initialise();
+		//==============================================================================
+		// SceneManager instantiation and Scene generation
+		//==============================================================================
 		sceneManager = new SceneManager();
 		sceneManager->initScene();
 
-		//Game Loop
+		//==============================================================================
+		// !!!---Game Loop---!!!
+		//==============================================================================
 		while (openGLLoader->isActive())
 		{
+			// Handle events
 			openGLLoader->handleEvents();
+
 			//Grab input
 			if (Input::getInput().getKeyboard()->isKeyDown(SDLK_f)) // Sound Test ####################################################
 			{
-				std::cout << "Shot Fired" << std::endl;
-				soundManager->getSnd("Shot")->playAudio(AL_TRUE);
+				if (bAudio)
+				{
+					std::cout << "Shot Fired" << std::endl;
+					soundManager->getSnd("Hit")->playAudio(AL_TRUE);
+				}
+			}
+			if (Input::getInput().getKeyboard()->isKeyDown(SDLK_F3))
+			{
+				std::cout << "Toggled Audio" << std::endl;
+				bAudio = !bAudio;													// toggle audio
+				if(bAudio) soundManager->getSnd("Theme")->playAudio(AL_LOOPING);	// play audio
+				else soundManager->getSnd("Theme")->stopAudio();					// stop audio
+			}
+			if (Input::getInput().getKeyboard()->isKeyDown(SDLK_b))
+			{
+				std::cout << "[Polygon Mode: Line]" << std::endl;
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				glDisable(GL_DEPTH_TEST);
+				glDisable(GL_CULL_FACE);
+			}
+			if (Input::getInput().getKeyboard()->isKeyDown(SDLK_n))
+			{
+				std::cout << "[Polygon Mode: Point]" << std::endl;
+				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+				glDisable(GL_DEPTH_TEST);
+				glDisable(GL_CULL_FACE);
+			}
+			if (Input::getInput().getKeyboard()->isKeyDown(SDLK_m))
+			{
+				std::cout << "[Polygon Mode: Fill]" << std::endl;
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				glEnable(GL_DEPTH_TEST);
+				glEnable(GL_CULL_FACE);
 			}
 			std::thread updateThread(update);				//Thread game logic and collision
 			//updateThread.detach();
 			updateThread.join();
 			
-			render(fontManager);
+			render();
 		}
 		cleanUp();
 	}

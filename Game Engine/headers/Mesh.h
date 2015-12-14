@@ -19,26 +19,30 @@ class Sphere;
 class Mesh:public Component
 {
 public:
-    Mesh();
-    ~Mesh();
-    
-    void init();
-    void destroy();
-    void bind();
-    
-    void copyVertexData(int count,int stride,void ** data);
-    void copyIndexData(int count,int stride,void ** data);
 
-    int getVertexCount();
-    int getIndexCount();
+	// Getters
+	int Mesh::getVertexCount() { return m_VertexCount; }
 
-protected:
+	// Setters
+	int Mesh::getIndexCount() {	return m_IndexCount; }
+
+    Mesh();		// Constructor
+    ~Mesh();	// Deconstructor
+    
+    void init();		// Generate Shader program and buffers
+    void destroy();		// Memory clean up
+    void bind();		// Bind buffers to pipeline
+    
+    void copyVertexData(int count,int stride,void ** data);		// For handling Vertex Data
+    void copyIndexData(int count,int stride,void ** data);		// For handling Index Data
+
 private:
-    int m_VertexCount;
-    int m_IndexCount;
-    GLuint m_VBO;
-    GLuint m_EBO;
-    GLuint m_VAO;
+
+    int m_VertexCount;	// Amount of Vertex's
+    int m_IndexCount;	// Amount of Indices
+    GLuint m_VBO;		// Vertex Buffer Object
+    GLuint m_EBO;		// Element Buffer Object
+    GLuint m_VAO;		// Vertex Array Object
 };
 
 #endif

@@ -5,19 +5,19 @@
 Camera::Camera()
 {
 	m_Type = "Camera";
-	m_LookAt=vec3(0.0f,0.0f,0.0f);
-	m_Up=vec3(0.0f,1.0f,0.0f);
-	m_NearClip=0.1f;
-	m_FarClip = 100.0f;
-	m_FOV=45.0f;
-	m_AspectRatio=16.0f/9.0f;
-	m_View = mat4();
-	m_Projection = mat4();
+	m_v3LookAt=vec3(0.0f,0.0f,0.0f);
+	m_v3Up=vec3(0.0f,1.0f,0.0f);
+	m_fNearClip=0.1f;
+	m_fFarClip = 100.0f;
+	m_fFOV=45.0f;
+	m_fAspectRatio=16.0f/9.0f;
+	m_m4View = mat4();
+	m_m4Projection = mat4();
 }
 
 Camera::~Camera()
 {
-    
+
 }
 
 void Camera::update()
@@ -25,59 +25,59 @@ void Camera::update()
 	//get the position from the transform
 	vec3 position = m_Parent->getTransform()->getPosition();
     
-	m_Projection = glm::perspective(m_FOV, m_AspectRatio, m_NearClip, m_FarClip);
-	m_View = glm::lookAt(position, m_LookAt, m_Up);
+	m_m4Projection = glm::perspective(m_fFOV, m_fAspectRatio, m_fNearClip, m_fFarClip);
+	m_m4View = glm::lookAt(position, m_v3LookAt, m_v3Up);
 }
 
 void Camera::setLook(float x, float y, float z)
 {
-    m_LookAt = vec3(x, y, z);
+    m_v3LookAt = vec3(x, y, z);
 }
 
 void Camera::setUp(float x, float y, float z)
 {
-    m_Up = vec3(x, y, z);
+    m_v3Up = vec3(x, y, z);
 }
 
 
  void Camera::setNearClip(float near)
  {
-     m_NearClip = near;
+     m_fNearClip = near;
  }
  
  void Camera::setFarClip(float far)
  {
-     m_FarClip = far;
+     m_fFarClip = far;
  }
 
 void Camera::setFOV(float FOV)
 {
-    m_FOV = FOV;
+    m_fFOV = FOV;
 }
 
 void Camera::setAspectRatio(float ratio)
 {
-    m_AspectRatio = ratio;
+    m_fAspectRatio = ratio;
 }
 
 mat4& Camera::getView()
 {
-    return m_View;
+    return m_m4View;
 }
 
 mat4& Camera::getProjection()
 {
-    return m_Projection;
+    return m_m4Projection;
 }
 
 vec3& Camera::getLookAt()
 {
-    return m_LookAt;
+    return m_v3LookAt;
 }
 
 vec3& Camera::getUp()
 {
-    return m_Up;
+    return m_v3Up;
 }
 
 vec3& Camera::calculateLookAtFromAngle(const vec3& rot)

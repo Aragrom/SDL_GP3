@@ -28,9 +28,9 @@ public:
     Input();	// Constructor
     ~Input();	// Deconstructor
     
-    bool init(const std::string& inputDBFilename);
-	void destroy();    
-    void update();
+    bool init(const std::string& inputDBFilename);		// Initialise joypads connected, mouse and keyboard
+	void destroy();										// memory manage
+    void update();										// 
 
 private:
 

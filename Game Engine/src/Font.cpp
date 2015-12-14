@@ -1,26 +1,14 @@
-/*
-==========================================================================
-cFont.cpp
-==========================================================================
-*/
 #pragma warning ( disable : 4996 )
 #include "Font.h"
 using namespace std;
 
-/*
-==========================================================================
-Default Constructor
-==========================================================================
-*/
+// Default Constructor
 Font::Font()
 {
 	theFont = NULL;
 }
-/*
-==========================================================================
-Overloaded constructor
-==========================================================================
-*/
+
+// Overloaded constructor
 Font::Font(LPCSTR fontFileName, int fontSize)
 {
 	theFont = new FTTextureFont(fontFileName);
@@ -38,30 +26,19 @@ Font::Font(LPCSTR fontFileName, int fontSize)
 	}
 }
 
-/*
-==========================================================================
-Destructor
-==========================================================================
-*/
+// Destructor
 Font::~Font()
 {
 	delete theFont;
 }
-/*
-==========================================================================
-get the pointer to the font
-==========================================================================
-*/
+
+// get the pointer to the font
 FTFont* Font::getFont()
 {
 	return theFont;
 }
 
-/*
-==========================================================================
-Render the text using the desired font
-==========================================================================
-*/
+//Render the text using the desired font
 void Font::printText(LPCSTR text, FTPoint textPos)
 {
 	glPushMatrix();

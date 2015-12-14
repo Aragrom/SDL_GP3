@@ -1,5 +1,6 @@
 #include "Joypad.h"
 
+// Constructor
 Joypad::Joypad(SDL_GameController * SDLController)
 {
 	m_SDLController = SDLController;
@@ -16,35 +17,38 @@ Joypad::Joypad(SDL_GameController * SDLController)
 	m_InvertAxis = true;
 }
 
+// Deconstructor
 Joypad::~Joypad()
 {
 	SDL_GameControllerClose(m_SDLController);
 }
 
-
+// Toggle short representing a button UP (2 array represent buttons up and buttons down)
 void Joypad::setButtonUp(short buttonIndex)
 {
 	m_ButtonsUp[buttonIndex] = true;
 	m_ButtonsDown[buttonIndex] = false;
 }
 
+// Toggle short representing a button DOWN
 void Joypad::setButtonDown(short buttonIndex)
 {
 	m_ButtonsUp[buttonIndex] = false;
 	m_ButtonsDown[buttonIndex] = true;
 }
 
+// Based on short representing the analog axis and an amount to move it
 void Joypad::setAxisValue(short axisID, int value)
 {
 	if (axisID == Joypad::AxisID::LEFT_AXIS_HORIZONTAL)
 	{
-		m_LeftThumbstick.x = value;
+		m_LeftThumbstick.x = value; // update value
 	}
 	else if (axisID == Joypad::AxisID::LEFT_AXIS_VERTICAL)
 	{
 		m_LeftThumbstick.y = value;
 		if (m_InvertAxis)
-			m_LeftThumbstick.y*=-1;
+			m_LeftThumbstick.y *= -1;
 	}
 	if (axisID == Joypad::AxisID::RIGHT_AXIS_HORIZONTAL)
 	{

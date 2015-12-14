@@ -6,8 +6,8 @@
 #include "Camera.h"
 #include "Light.h"
 #include "Collider.h"
-#include "Sphere.h"
 
+// Constructor
 GameObject::GameObject()
 {
     m_Transform=NULL;
@@ -20,11 +20,13 @@ GameObject::GameObject()
 	m_Parent = NULL;
 }
 
+// Deconstructor
 GameObject::~GameObject()
 {
 
 }
 
+// Call init() on all components and child components
 void GameObject::init()
 {
 	for (auto iter = m_Components.begin(); iter != m_Components.end(); iter++)
@@ -38,6 +40,7 @@ void GameObject::init()
 	}
 }
 
+// Call update() on all components and child components
 void GameObject::update()
 {
 	for (auto iter = m_Components.begin(); iter != m_Components.end(); iter++)
@@ -52,6 +55,7 @@ void GameObject::update()
     
 }
 
+// Call render() on all components and child components
 void GameObject::render()
 {
 	for (auto iter = m_Components.begin(); iter != m_Components.end(); iter++)
@@ -66,6 +70,7 @@ void GameObject::render()
     
 }
 
+// Call destroy() on all components and child components
 void GameObject::destroy()
 {
     auto iter=m_Components.begin();
@@ -104,109 +109,129 @@ void GameObject::destroy()
     
 }
 
+// Take component add it to component list and set parent of component to this GameObject
 void GameObject::addComponent(Component * component)
 {
     component->setParent(this);
     m_Components.push_back(component);
 }
 
+// Set name property of this GameObject
 void GameObject::setName(const std::string& name)
 {
     m_Name=name;
 }
 
+// Get name property (string)
 const std::string& GameObject::getName()
 {
     return m_Name;
 }
 
+// Take Pointer to Transform component and add it to this GameObject's Transform component
 void GameObject::setTransform(Transform * transform)
 {
     m_Transform=transform;
     addComponent(transform);
 }
 
+// Take Pointer to Mesh component and add it to this GameObject's Mesh component
 void GameObject::setMesh(Mesh * mesh)
 {
     m_Mesh=mesh;
     addComponent(mesh);
 }
 
+// Take Pointer to Material component and add it to this GameObject's Material component
 void GameObject::setMaterial(BaseMaterial * material)
 {
     m_Material=material;
     addComponent(material);
 }
 
+// Take Pointer to Camera component and add it to this GameObject's Camera component
 void GameObject::setCamera(Camera * camera)
 {
     m_Camera=camera;
     addComponent(camera);
 }
 
+// Take Pointer to Light component and add it to this GameObject's light component
 void GameObject::setLight(Light * light)
 {
 	m_Light = light;
 	addComponent(light);
 }
 
+// Take Pointer to Collider component and add it to this GameObject's Collider component
 void GameObject::setCollider(Collider *collider)
 {
 	m_Collider = collider;
-	collider->setParent(gameObject);
+	collider->setParent(gameObject); // Set collider parent component to this GameObject (Link with self)
 }
 
+// Getter - Return Pointer to this GameObject's Transform
 Transform * GameObject::getTransform()
 {
     return m_Transform;
 }
 
+// Getter - Return Pointer to this GameObject's Mesh
 Mesh * GameObject::getMesh()
 {
     return m_Mesh;
 }
 
+// Getter - Return Pointer to this GameObject's Material
 BaseMaterial * GameObject::getMaterial()
 {
     return m_Material;
 }
 
+// Getter - Return Pointer to this GameObject's Camera
 Camera * GameObject::getCamera()
 {
     return m_Camera;
 }
 
+// Getter - Return Pointer to this GameObject's Light
 Light * GameObject::getLight()
 {
 	return m_Light;
 }
 
+// Getter - Return Pointer to this GameObject's Collider
 Collider * GameObject::getCollider()
 {
 	return m_Collider;
 }
 
+// Takes a GameObject Pointer and add it to the vector of child GameObjects
 void GameObject::addChild(GameObject * obj)
 {
 	obj->setParent(this);
 	m_Children.push_back(obj);
 }
 
+// Set this GameObjects Parent property sending a pointer to a GameObject
 void GameObject::setParent(GameObject *parent)
 {
 	m_Parent = parent;
 }
 
+// Get this GameObjects Parent Property pointer
 GameObject *GameObject::getParent()
 {
 	return m_Parent;
 }
 
+// Return integer representing the number of child GameObject's this GameObject has
 int GameObject::getChildCount()
 {
 	return m_Children.size();
 }
 
+// Return a child GameObject pointer using its index
 GameObject * GameObject::getChild(int index)
 {
 	if (index < m_Children.size())
@@ -215,6 +240,7 @@ GameObject * GameObject::getChild(int index)
 		return NULL;
 }
 
+// Get GameObject's component pointer based on a string representing a component type
 Component * GameObject::getComponentByType(const std::string& type)
 {
     Component *found=NULL;

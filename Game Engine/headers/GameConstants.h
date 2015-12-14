@@ -52,9 +52,6 @@
 #include <map>
 #include <algorithm>
 
-// Textures
-#include "Texture.h"
-
 // Multi-Threading
 #include <omp.h>
 #include <stdio.h>
@@ -82,7 +79,6 @@
 #include "Input.h"
 #include "Timer.h"
 #include "OpenGLLoader.h"
-#include "SkyBox.h"
 #include "SceneManager.h"
 
 //Camera Window Width
@@ -127,7 +123,8 @@ struct mdlDimensions {
 const float PLAYFIELDX = 100.0f;
 const float PLAYFIELDZ = 300.0f;
 
-extern vec3 V3_START_POSITION;
+extern vec3 V3_START_POSITION;		// Player and build start position
+extern vec3 V3_VIEW_POSITION;		// Position for camera for viewing the scene
 
 extern int drawMode;
 extern float rotationAngle;

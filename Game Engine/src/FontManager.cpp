@@ -1,20 +1,8 @@
-/*
-== == == == == == == == =
-cFontMgr.h
-- Header file for class definition - SPECIFICATION
-- Header file for the cFontMgr class
-== == == == == == == == =
-*/
-
 #include "FontManager.h"
 
 FontManager* FontManager::pInstance = NULL;
 
-/*
-=================================================================================
-Singleton Design Pattern
-=================================================================================
-*/
+//Singleton Design Pattern
 FontManager* FontManager::getInstance()
 {
 	if (pInstance == NULL)
@@ -24,17 +12,13 @@ FontManager* FontManager::getInstance()
 	return FontManager::pInstance;
 }
 
-/*
-=================================================================================
-Constructor
-=================================================================================
-*/
+// Constructor
 FontManager::FontManager()
 {
 
 }
 
-FontManager::~FontManager()							// Destructor.
+FontManager::~FontManager()	// Destructor.
 {
 	deleteFont();
 }
@@ -47,7 +31,7 @@ void FontManager::addFont(LPCSTR fontName, LPCSTR fileName, int fontSize)  // ad
 	}
 }
 
-Font* FontManager::getFont(LPCSTR fontName)				// return the font for use
+Font* FontManager::getFont(LPCSTR fontName)	// return the font for use
 {
 	map<LPCSTR, Font*>::iterator theFont = gameFonts.find(fontName);
 	if (theFont != gameFonts.end())
@@ -60,7 +44,7 @@ Font* FontManager::getFont(LPCSTR fontName)				// return the font for use
 	}
 }
 
-void FontManager::deleteFont()								// delete font.
+void FontManager::deleteFont()	// delete font.
 {
 	for (map<LPCSTR, Font*>::const_iterator theFont = gameFonts.begin(); theFont != gameFonts.end(); theFont++)
 	{

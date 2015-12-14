@@ -1,5 +1,7 @@
 #include "GameConstants.h"
+// Base class for BoxCollider and SphereCollider
 
+// Constructor
 Collider::Collider()
 {
 	m_Active = true;
@@ -7,6 +9,7 @@ Collider::Collider()
 	m_ColliderType = "";
 }
 
+// Deconstructor
 Collider::~Collider()
 {
 

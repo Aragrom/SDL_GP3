@@ -21,12 +21,14 @@ public:
 	//Getter
 	GameObject* getGameObject() { return m_gameObject; }
 	bool getIsFalling() { return m_bIsFalling; }
+	int getPlayerHealth() { return m_iHealth; }
 
 	Player();
 	~Player();
 
 	void update();
 	void moveUsingGravity();
+	bool takeDamage(int iDmg);
 	void checkOutOfBounds();
 	void setIsFalling(bool b);
 
@@ -36,7 +38,7 @@ private:
 	vec3 m_v3StartPosition;
 	float m_fFallVelocity;
 	bool m_bIsFalling;
-	int m_iLives;
+	int m_iHealth;
 };
 
 #endif

@@ -9,13 +9,11 @@ class Collider : public Component
 public:
 
 	//Setters
-	void setColliderType(std::string strType) { m_ColliderType = strType; }
-	void setCollisionDetected(bool b) { m_bCollisionDetected = b; }
-	void setOffSet(vec3 v3) { m_v3OffSet = v3; }
+	void setColliderType(std::string strType) { m_ColliderType = strType; }		// Collider type Can be 'SphereCollider' or 'BoxCollider'
+	void setOffSet(vec3 v3) { m_v3OffSet = v3; }								// For offsetting collider from gameObjects transform position
 
 	//Getters
 	std::string getColliderType() { return m_ColliderType; }
-	bool getCollisionDetected() { return m_bCollisionDetected; }
 	vec3 getOffSet() { return m_v3OffSet; }
 
 	Collider();		// Constructor
@@ -23,8 +21,7 @@ public:
 
 private:
 
-	vec3 m_v3OffSet;
-	bool m_bCollisionDetected;
+	vec3 m_v3OffSet;			// Vec3 holding the colliders offset
 	std::string m_ColliderType;	// String representing Collider type
 };
 

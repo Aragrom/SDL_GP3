@@ -17,9 +17,36 @@
 #include <glm/glm.hpp>
 using glm::vec3;
 
-/*
-Constructor
-*/
+//#include "GameConstants.h"
+
+// Toggle bool state and based on state move camera
+void BasicCameraController::toggleViewMode()
+{
+	m_bViewMode = !m_bViewMode;
+	if (m_bViewMode && !checkCameraPosition()) 
+	{
+		v3SavedPosition = m_Parent->getTransform()->getPosition();
+		v3SavedRotation = m_v3LookAt;
+		m_Parent->getTransform()->setPosition(V3_VIEW_POSITION.x, V3_VIEW_POSITION.y, V3_VIEW_POSITION.z);
+		m_v3LookAt = vec3(-300.0f, -100.0f, -500.0f);
+	}
+
+	if (!m_bViewMode && checkCameraPosition())
+	{
+		m_Parent->getTransform()->setPosition(v3SavedPosition.x, v3SavedPosition.y, v3SavedPosition.z);
+		m_v3LookAt = v3SavedRotation;
+	}
+}
+
+// Used to check if the camera position is equal to the 'scene viewer position'
+bool BasicCameraController::checkCameraPosition()
+{
+	vec3 v3CamCurPos = m_Parent->getTransform()->getPosition();
+	if (v3CamCurPos == V3_VIEW_POSITION) return true;
+	else return false;
+}
+
+// Constructor
 BasicCameraController::BasicCameraController()
 {
 	m_Type = "BasicCameraController";
@@ -33,27 +60,29 @@ BasicCameraController::BasicCameraController()
 	m_cAxis = 'x';
 	m_iDir = 0;
 	m_bCanMove = true;
+	m_bViewMode = false;
+	v3SavedPosition = vec3();
 }
 
-/*
-Deconstructor
-*/
+// Deconstructor
 BasicCameraController::~BasicCameraController()
 {
 
 }
 
-
+// Restricts movement when up against a wall
 void BasicCameraController::setCanMove(bool b)
 {
 	m_bCanMove = b;
 }
 
+// Set the look at angle (angle used to generate view vector)
 void BasicCameraController::setLookAngle(float f) 
 {
 	m_fAngle = f;
 }
 
+// Set lock on to target state
 void BasicCameraController::setLookingAtTarget(bool b)
 {
 	if (b) std::cout << "\nCamera View: Locked (Press 'TAB' to iterate through GameObjects)" << std::endl;
@@ -61,11 +90,13 @@ void BasicCameraController::setLookingAtTarget(bool b)
 	m_bLookAtTarget = b;
 }
 
+// Get state - if locking onto targets
 bool BasicCameraController::getLookingAtTarget()
 {
 	return m_bLookAtTarget;
 }
 
+// Add GameObject to list of GameObjects that get be targetted
 void BasicCameraController::addGameObjectToTargets(GameObject *go)
 {
 	m_vTargetGameObjects.push_back(go);
@@ -80,10 +111,7 @@ void BasicCameraController::iterateThroughTargets()
 	std::cout << " - Targetted: " << m_vTargetGameObjects[m_iTargetIndex]->getName() << std::endl;
 }
 
-/*
-Moves camera forward, backward, up and down using
-a string
-*/
+// Move cameras 'look at' and transform 'position' based on a string representing a direction
 void BasicCameraController::moveCamera(std::string strDir)
 {
 	float fX = m_Parent->getTransform()->getPosition().x;
@@ -116,13 +144,11 @@ void BasicCameraController::moveCamera(std::string strDir)
 		fY -= 0.01f;
 	}
 
-	m_Parent->getTransform()->setPosition(fX, fY, fZ);
-	Camera::m_LookAt = vec3(fX + m_fSinX, fY, fZ + m_fCosZ);
+	m_Parent->getTransform()->setPosition(fX, fY, fZ);			// set transfrom 'position'
+	Camera::m_v3LookAt = vec3(fX + m_fSinX, fY, fZ + m_fCosZ);	// set 'look at'
 }
 
-/*
-Rotates the camera around the Y axis using a direction
-*/
+// Rotate camera's 'look at' propety using current position and angle
 void BasicCameraController::rotateCameraHorizontal(int iDir)
 {	
 	if (!m_bLookAtTarget)
@@ -142,17 +168,13 @@ void BasicCameraController::rotateCameraHorizontal(int iDir)
 		}
 
 		vec3 v3Pos = m_Parent->getTransform()->getPosition();
-		m_LookAt = vec3(v3Pos.x + m_fSinX,
+		m_v3LookAt = vec3(v3Pos.x + m_fSinX,
 			v3Pos.y,
 			v3Pos.z + m_fCosZ);
 	}
 }
 
-int BasicCameraController::getDir()
-{
-	return m_iDir;
-}
-
+// Move GameObject currently targetted based on a string representing a direction
 void BasicCameraController::moveObject(std::string str)
 {
 	vec3 v3Pos = m_vTargetGameObjects[m_iTargetIndex]->getTransform()->getPosition();
@@ -180,11 +202,13 @@ void BasicCameraController::moveObject(std::string str)
 	}
 }
 
+// Rotate targetted GameObject based on a integer representing a direction
 void BasicCameraController::rotateObject(int iDir)
 {
 	vec3 v3Rot = m_vTargetGameObjects[m_iTargetIndex]->getTransform()->getRotation();
 	float f;
 
+	// The modifier m_cAxis represents the axis the object will rotate around
 	if (m_cAxis == 'x')
 	{
 		if(iDir > 0) f = v3Rot.x + m_fObjectRotateSpeed;
@@ -207,20 +231,22 @@ void BasicCameraController::rotateObject(int iDir)
 	}
 }
 
-/*
-Memory Clean Up
-*/
+// Memory clean up
 void BasicCameraController::Destroy()
 {
 	m_vTargetGameObjects.clear();
 }
 
-/*
-Updates matrices for Projection and view
-using parents>transform>position
-*/
+// Updates matrices for Projection and view using parents>transform>position
+// Handles camera input events for movement and rotation
 void BasicCameraController::update()
 {	
+	// Toggle Camera Position to the other view
+	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_F2))
+	{
+		toggleViewMode();
+	}
+	
 	//Grab input
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_w))
 	{
@@ -233,11 +259,11 @@ void BasicCameraController::update()
 
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_a))
 	{
-		if (m_bCanMove) rotateCameraHorizontal(-1);
+		rotateCameraHorizontal(-1);
 	}
 	else if (Input::getInput().getKeyboard()->isKeyDown(SDLK_d))
 	{
-		if (m_bCanMove) rotateCameraHorizontal(1);
+		rotateCameraHorizontal(1);
 	}
 
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_CAPSLOCK))
@@ -256,50 +282,31 @@ void BasicCameraController::update()
 		//promptInputForLight();
 	}
 
-	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_b))
-	{
-		std::cout << "[Polygon Mode: Line]" << std::endl;
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
-	}
-	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_n))
-	{
-		std::cout << "[Polygon Mode: Point]" << std::endl;
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
-	}
-	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_m))
-	{
-		std::cout << "[Polygon Mode: Fill]" << std::endl;
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
-	}
-
 	if (Input::getInput().getKeyboard()->isKeyDown(SDLK_F1))
 	{
-		std::cout << "\nCONTROLS: Press F1 for 'help' (command list)" << std::endl;
-		std::cout << "\nNAVIGATION:\n" << std::endl;
+		std::cout << "CONTROLS: Press F1 for 'help' (command list)" << std::endl;
+		std::cout << "NAVIGATION:" << std::endl;
 		std::cout << "[W]: Move camera FORWARD" << std::endl;
 		std::cout << "[S]: Move camera BACKWARD" << std::endl;
 		std::cout << "[A]: Rotate camera LEFT" << std::endl;
 		std::cout << "[D]: Rotate camera RIGHT" << std::endl;
 		std::cout << "[SPACE]: Move camera UP" << std::endl;
-		std::cout << "[LEFT_SHIFT]: Move camera DOWN\n" << std::endl;
-		std::cout << "OBJECT MANIPULATION\n" << std::endl;
+		std::cout << "[LEFT_SHIFT]: Move camera DOWN" << std::endl;
+		std::cout << "OBJECT MANIPULATION" << std::endl;
 		std::cout << "[CAPS_LOCK]: Target scene objects " << std::endl;
-		std::cout << "[TAB]: Iterate through scene objects\n" << std::endl;
+		std::cout << "[TAB]: Iterate through scene objects" << std::endl;
 		std::cout << "...while locked onto an object" << std::endl;
 		std::cout << "[Q]: Rotate positively round an object " << std::endl;
-		std::cout << "[E]: Rotate negatively round an object\n" << std::endl;
-		std::cout << "...while holding " << std::endl;
-		std::cout << "[X]: round the x-axis " << std::endl;
-		std::cout << "[Y]: round the y-axis " << std::endl;
-		std::cout << "[Z]: round the z-axis\n" << std::endl;
+		std::cout << "[E]: Rotate negatively round an object" << std::endl;
+		std::cout << "Change Rotate Axis" << std::endl;
+		std::cout << "[1]: round the x-axis " << std::endl;
+		std::cout << "[2]: round the y-axis " << std::endl;
+		std::cout << "[3]: round the z-axis" << std::endl;
 		std::cout << "...To move objects" << std::endl;
 		std::cout << "[UP_ARROW][DOWN_ARROW][LEFT_ARROW][RIGHT_ARROW]" << std::endl;
+		std::cout << "[B]: LINE MODE " << std::endl;
+		std::cout << "[N]: POINT MODE" << std::endl;
+		std::cout << "[M]: FILL MODE" << std::endl;
 	}
 
 	//if locked onto a target
@@ -321,13 +328,13 @@ void BasicCameraController::update()
 	//get the position from the transform
 	vec3 v3CameraPosition = m_Parent->getTransform()->getPosition();
 
-	m_Projection = glm::perspective(m_FOV, m_AspectRatio, m_NearClip, m_FarClip);
+	m_m4Projection = glm::perspective(m_fFOV, m_fAspectRatio, m_fNearClip, m_fFarClip);
 	
 	//if looking at target
 	if (m_bLookAtTarget)
 	{
 		vec3 v3LookPosition = m_vTargetGameObjects[m_iTargetIndex]->getTransform()->getPosition();
-		m_View = glm::lookAt(v3CameraPosition, v3LookPosition, m_Up);
+		m_m4View = glm::lookAt(v3CameraPosition, v3LookPosition, m_v3Up);
 	}
-	else m_View = glm::lookAt(v3CameraPosition, m_LookAt, m_Up); //not looking at target
+	else m_m4View = glm::lookAt(v3CameraPosition, m_v3LookAt, m_v3Up); //not looking at target
 }

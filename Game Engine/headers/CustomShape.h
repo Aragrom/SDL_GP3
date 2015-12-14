@@ -10,18 +10,10 @@ class CustomShape
 
 public:
 
-	CustomShape();		// Constructor
-	void initFloor(GameObject * go);	// Initiate CustomShape preparing Vertices from gameObject.transform.position
+	CustomShape();					// Constructor
+	void init(GameObject * go);		// Initiate CustomShape preparing Vertices from gameObject.transform.position
 	void generateMesh(GameObject * go, GLuint indices[], Vertex vertices[], int iIdenices, int iVerticies);		// Load Mesh with Vertex and Indices Data
-
-	glm::vec3 m_topLeftFront;
-	glm::vec3 m_bottomLeftFront;
-	glm::vec3 m_topRightFront;
-	glm::vec3 m_bottomRightFront;
-	glm::vec3 m_topLeftBack;
-	glm::vec3 m_topRightBack;
-	glm::vec3 m_bottomLeftBack;
-	glm::vec3 m_bottomRightBack;
+	void sprite(GameObject * go);	// Initiate CustomShape preparing Vertex and indices data for mesh component
 
 	glm::vec3 m_Faces[24];		// Array of Vector 3 representing Faces
 	GLuint m_Indices[36];		// Array of GLuint representing the CustomShape's indices

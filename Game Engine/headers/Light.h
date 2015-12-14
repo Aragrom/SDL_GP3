@@ -28,6 +28,10 @@ public:
 
 private:
 
+	float m_fAngle;										// Current rotation
+	float m_fSinX;										// Value for Rotating
+	float m_fCosZ;										// Value for Rotating
+
 	// Light Properties
 	vec4 m_DiffuseColour;		// Base colour
 	vec4 m_SpecularColour;		// Highlight colour

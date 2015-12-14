@@ -39,17 +39,17 @@ public:
 protected:
 
 	// Camera Properties
-	float m_NearClip;
-	float m_FarClip;
-	float m_FOV;
-	float m_AspectRatio;
+	float m_fNearClip;
+	float m_fFarClip;
+	float m_fFOV;
+	float m_fAspectRatio;
 
 	// View and Projection Matrix
-	mat4 m_View;
-	mat4 m_Projection;
+	mat4 m_m4View;
+	mat4 m_m4Projection;
 
-	vec3 m_LookAt;				// Stores Look at Vector-3
-	vec3 m_Up;					// Stores Up Vector-3
+	vec3 m_v3LookAt;				// Stores Look at Vector-3
+	vec3 m_v3Up;					// Stores Up Vector-3
 };
 
 #endif

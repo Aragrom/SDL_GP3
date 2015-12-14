@@ -9,7 +9,18 @@ class Component
 {
 public:
 
-    Component();	// Constructor
+	// Getters
+	const std::string& getName() { return m_Name; }
+	const std::string& getType() { return m_Type; }
+	GameObject *getParent() { return m_Parent; }
+	bool isActive() { return m_Active; }
+
+	// Setter
+	void toggleActive() { m_Active = !m_Active; }
+	void setParent(GameObject *object) { m_Parent = object; }
+	void setName(const std::string& name) { m_Name = name; }
+
+    Component();			// Constructor
     virtual ~ Component();	// Deconstructor
     
 	// VIRTUAL functions
@@ -17,18 +28,6 @@ public:
     virtual void update();    
     virtual void render();    
     virtual void destroy();
-    
-	// Getters
-    const std::string& getType();
-    const std::string& getName();
-	GameObject * getParent();    
-    bool isActive();
-
-	// Setters
-	void setParent(GameObject * object);
-	void setName(const std::string& name);
-    
-    void toggleActive();	// Based on current state alternate
 
 protected:
 
